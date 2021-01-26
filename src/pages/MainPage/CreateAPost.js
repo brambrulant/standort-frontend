@@ -11,10 +11,11 @@ Object.assign(theme, {
     MUIRichTextEditor: {
       root: {
         marginTop: 20,
-        width: "45%",
-        height: "20vh",
+        // width: "45%",
+        minHeight: "150px",
+        minWidth: "400px",
         border: "1px solid grey",
-        borderRadius: "20px",
+        borderRadius: "8px",
       },
     },
   },
@@ -77,6 +78,8 @@ const styles = {
   form: {
     display: "flex",
     flexWrap: "wrap",
+    width: "30vw",
+    height: "10vh",
   },
   textField: {
     marginLeft: "0px",
