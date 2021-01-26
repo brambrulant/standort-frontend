@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { TextField, Button, createMuiTheme, MuiThemeProvider, Chip } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { submitPost } from "../store/posts/actions";
