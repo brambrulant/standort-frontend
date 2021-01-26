@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TextField, Button, createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { submitPost } from "../../store/posts/actions";
+import { submitPost } from "../store/posts/actions";
 import MUIRichTextEditor from "mui-rte";
 const theme = createMuiTheme();
 
