@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { TextField, Button, createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import { TextField, Button, createMuiTheme, MuiThemeProvider, Chip } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { submitPost } from "../store/posts/actions";
 import MUIRichTextEditor from "mui-rte";
+import { tags } from "../config/constants";
 const theme = createMuiTheme();
 
 // root, container, editor, and editorContainer
@@ -35,15 +36,22 @@ export default function CreateAPost() {
     const { name, value } = event.target;
     setState({ ...state, [name]: value });
   };
+  const toggleTag = (tag) => {
+    state.tags.includes(tag)
+      ? setState({ ...state, tags: state.tags.filter((atag) => tag !== atag) })
+      : setState({ ...state, tags: [...state.tags, tag] });
+  };
   const submit = () => dispatch(submitPost(state));
-  /* when we implement tags
-  const tags = useSelector((state) => state.tags)
-  const tagSelectionlist = tags.map((tag) => (
-    <Button variant="outlined" className={classes.tag}>
-      {tag}
-    </Button>
-  )); 
-  */
+  const tagButtonlist = tags.map((tag, i) => (
+    <Chip
+      color="primary"
+      key={i}
+      label={tag}
+      onClick={() => toggleTag(tag)}
+      variant={state.tags.includes(tag) ? "default" : "outlined"}
+      className="tagChip"
+    ></Chip>
+  ));
   //  https://www.npmjs.com/package/mui-rte
   //  decide on toolbar controls
   // values are: "title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear", "save".
@@ -66,10 +74,12 @@ export default function CreateAPost() {
           // controls={string[]}
         />
       </MuiThemeProvider>
-      {/* {tagList} */}
-      <Button onClick={submit} variant="contained">
-        Post
-      </Button>
+      <div style={styles.addTagsRow}>
+        {tagButtonlist}
+        <Button onClick={submit} variant="contained">
+          Post
+        </Button>
+      </div>
     </form>
   );
 }
@@ -84,4 +94,5 @@ const styles = {
   textField: {
     marginLeft: "0px",
   },
+  addTagsRow: {},
 };
