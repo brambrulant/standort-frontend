@@ -1,0 +1,1 @@
+export const selectMyLocation = state => state.location;
