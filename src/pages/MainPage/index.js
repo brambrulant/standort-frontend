@@ -52,10 +52,7 @@ export default function MainPage() {
   return (
     <div>
       <Button onClick={showMyLocation}>{buttonName}</Button>
-      <h4>Create Post</h4>
-      <CreatePost />
-      {/*draft*/}
-      {posts?.map((post, index) =>
+      {posts.map((post, index) =>
           <div key={index}>
             <h1>date: {post.post.createdAt}</h1>
             <h2>location: {post.post.location}</h2>
@@ -63,6 +60,8 @@ export default function MainPage() {
             <p>created by {post.post.user.name}</p>
             <p>{post.comments.length} comment: {post.comments.map((comment, index)=> <span key={index}>{comment.text}</span>)}</p>
           </div>)}
+      <h4>Create Post</h4>
+      <CreatePost />
     </div>
   );
 }
