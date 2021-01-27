@@ -13,7 +13,6 @@ export default function MainPage() {
   const [buttonName, setButtonName] = useState("Show my location");
   const location = useSelector(selectMyLocation);
   const posts = useSelector(selectPosts);
-  console.log(posts);
   useEffect(() => {
     console.log("RENDER");
     if (location) {
@@ -21,7 +20,7 @@ export default function MainPage() {
       dispatch(fetchPostsWithMyLocation(location));
       console.log("POSTS", posts);
     }
-  }, [location, dispatch, posts.length]);
+  }, [location, dispatch]);
 
   function showMyLocation() {
     if (!navigator.geolocation) {
