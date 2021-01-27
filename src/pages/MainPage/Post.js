@@ -1,14 +1,41 @@
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import Comment from "./Comment";
+import ReactMarkdown from "react-markdown";
 
 export default function Post({ post }) {
   return (
-    <div>
-      <h1>date: {post.post.createdAt}</h1>
-      <h2>location: {post.post.location}</h2>
-      <p>message {post.post.message}</p>
-      <p>created by {post.post.user.name}</p>
-      <Comment comment={post.comments} id={post.post.id}/>
-    </div>
+    <Card>
+      <CardActionArea>
+        {post.image ? <CardMedia image={post.image} title={`image of ${post.name}`} /> : null}
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {post.user.name}
+          </Typography>
+          <Typography gutterBottom variant="body2" component="p">
+            {post.title}
+          </Typography>
+          <Typography variant="body1" color="textSecondary" component="p">
+            <ReactMarkdown>{post.message}</ReactMarkdown>
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        {/* <Button size="small" color="primary">
+          {post.comments.length}
+        </Button> */}
+        {/* <Button size="small" color="primary">
+          Learn More
+        </Button> */}
+      </CardActions>
+    </Card>
   );
 }

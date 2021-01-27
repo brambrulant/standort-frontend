@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import { signUp } from "../../store/user/actions";
 import { selectToken } from "../../store/user/selector";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { Col } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -34,49 +37,61 @@ export default function SignUp() {
 
   return (
     <Container>
-      <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
-        <h1 className="mt-5 mb-5">Signup</h1>
-        <Form.Group controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
+      <form
+        md={{ span: 6, offset: 3 }}
+        className="mt-5"
+        noValidate
+        autoComplete="off"
+      >
+        <Typography variant="h2" gutterBottom>
+          signup
+        </Typography>
+        <Grid>
+          <Typography variant="body1" gutterBottom>
+            name
+          </Typography>
+          <TextField
             value={name}
-            onChange={event => setName(event.target.value)}
+            onChange={(event) => setName(event.target.value)}
             type="text"
             placeholder="Enter name"
             required
           />
-        </Form.Group>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            value={email}
-            onChange={event => setEmail(event.target.value)}
+        </Grid>
+        <Grid>
+          <Typography variant="body1" gutterBottom>
+            email
+          </Typography>
+          <TextField
+            id="standard-basic"
+            placeholder="Enter password"
+            onChange={(event) => setEmail(event.target.value)}
             type="email"
-            placeholder="Enter email"
-            required
+            value={email}
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
-
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        </Grid>
+        <Grid>
+          <Typography variant="body1" gutterBottom>
+            password
+          </Typography>
+          <TextField
+            id="standard-basic"
+            placeholder="Enter password"
+            onChange={(event) => setPassword(event.target.value)}
+            type="email"
             value={password}
-            onChange={event => setPassword(event.target.value)}
-            type="password"
-            placeholder="Password"
-            required
           />
-        </Form.Group>
-        <Form.Group className="mt-5">
+        </Grid>
+        <Grid>
           <Button variant="primary" type="submit" onClick={submitForm}>
-            Sign up
+            sign up
           </Button>
-        </Form.Group>
-        <Link to="/login">Click here to log in</Link>
-      </Form>
+          <Button>
+            <Link to="/login">log in</Link>
+          </Button>
+        </Grid>
+        <Grid></Grid>
+      </form>
     </Container>
   );
 }

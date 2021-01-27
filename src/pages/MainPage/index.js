@@ -1,4 +1,4 @@
-import CreatePost from "../../components/CreatePost";
+import CreatePost from "../../components/CreatePost/CreatePost";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
@@ -50,11 +50,13 @@ export default function MainPage() {
     setButtonName("Unable to retrieve your location");
     console.warn(`ERROR(${error.code}): ${error.message}`);
   }
-
+  console.log("1st post:", posts.length > 0 && posts[0]);
   return (
     <div>
       <Button onClick={showMyLocation}>{buttonName}</Button>
-      {posts && posts.length > 0 && posts.map((post, index) => <Post key={index} post={post} />)}
+      <div className="posts">
+        {posts.length > 0 && posts.map((post, index) => <Post key={post.id} post={post} />)}
+      </div>
       <h4>Create Post</h4>
       <CreatePost location={location} />
     </div>
