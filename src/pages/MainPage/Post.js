@@ -2,7 +2,6 @@ import React from "react";
 import Comment from "./Comment";
 
 export default function Post({ post }) {
-    console.log("POST from POst component", post);
   return (
     <div>
       <h1>date: {post.post.createdAt}</h1>

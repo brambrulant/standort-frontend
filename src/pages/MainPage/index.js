@@ -13,10 +13,11 @@ export default function MainPage() {
   const [buttonName, setButtonName] = useState("Show my location");
   const location = useSelector(selectMyLocation);
   const posts = useSelector(selectPosts);
-  console.log(posts);
+
   useEffect(() => {
     console.log("RENDER");
     if (location) {
+
       setButtonName(location);
       dispatch(fetchPostsWithMyLocation(location));
       console.log("POSTS", posts);
@@ -53,7 +54,7 @@ export default function MainPage() {
   return (
     <div>
       <Button onClick={showMyLocation}>{buttonName}</Button>
-      {posts && posts.length > 0 && posts.map((post) => <Post key={post.id} post={post} />)}
+      {posts && posts.length > 0 && posts.map((post, index) => <Post key={index} post={post} />)}
       <h4>Create Post</h4>
       <CreatePost location={location} />
     </div>
