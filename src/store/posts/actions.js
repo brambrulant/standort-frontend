@@ -6,6 +6,7 @@ import {
   showMessageWithTimeout,
   setMessage,
 } from "../appState/actions";
+import { selectToken } from "../user/selectors";
 export const SUBMIT_POST_SUCCESS = "SUBMIT_POST_SUCCESS";
 export const DATA_RESPONSE = "DATA_RESPONSE";
 
@@ -17,10 +18,13 @@ export const submittedPost = (post) => ({
 export const submitPost = (post) => async (dispatch, getState) => {
   // Validate Input here?
 
-  const userToken = getState.user?.token;
+  const userToken = selectToken(getState());
+  console.log("token", userToken);
   try {
     dispatch(setMessage("primary", true, "submitting post"));
-    const response = await axios.post(`${apiUrl}/posts`, post);
+    const response = await axios.post(`${apiUrl}/posts`, post, {
+      headers: { Authorization: `Bearer ${userToken}` },
+    });
     dispatch(submittedPost(response.data));
     dispatch(showMessageWithTimeout("success", true, "post submitted", 2500));
   } catch (e) {

@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
       console.log("DATA_RESPONSE", action.payload);
       return {
         ...state,
-        postsFromFeed: [...state.postsFromFeed, action.payload],
+        postsFromFeed: [...state.postsFromFeed, ...action.payload],
       };
 
     default:
