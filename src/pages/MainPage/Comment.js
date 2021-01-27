@@ -53,7 +53,7 @@ export default function Comment(props) {
              </Paper>
              : null
             }
-            <Button onClick={() => addComment(postId)}>Add comment</Button>
+            <Button onClick={() => addComment(postId)} disabled={user.token === null}>Add comment</Button>
         </>
     );
 }
