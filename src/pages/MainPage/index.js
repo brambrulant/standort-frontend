@@ -21,7 +21,7 @@ export default function MainPage() {
       dispatch(fetchPostsWithMyLocation(location));
       console.log("POSTS", posts);
     }
-  }, [location, dispatch, posts.length]);
+  }, [location, dispatch]);
 
   function showMyLocation() {
     if (!navigator.geolocation) {
@@ -53,7 +53,7 @@ export default function MainPage() {
   return (
     <div>
       <Button onClick={showMyLocation}>{buttonName}</Button>
-      {posts.length > 0 && posts.map((post, index) => <Post key={post.id} post={post} />)}
+      {posts && posts.length > 0 && posts.map((post) => <Post key={post.id} post={post} />)}
       <h4>Create Post</h4>
       <CreatePost location={location} />
     </div>
