@@ -8,9 +8,8 @@ export default function Post({ post }) {
       <h2>location: {post.location}</h2>
       <p>message {post.message}</p>
       <p>created by {post.user}</p>
-      {post.comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
-      ))}
+      {post.comments &&
+        post.comments.map((comment) => <Comment key={comment.id} comment={comment} />)}
     </div>
   );
 }
