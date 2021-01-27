@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardActionArea,
   CardActions,
@@ -12,6 +11,7 @@ import Comment from "./Comment";
 import ReactMarkdown from "react-markdown";
 
 export default function Post({ post }) {
+  const { comments, id } = post;
   return (
     <Card>
       <CardActionArea>
@@ -29,12 +29,7 @@ export default function Post({ post }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        {/* <Button size="small" color="primary">
-          {post.comments.length}
-        </Button> */}
-        {/* <Button size="small" color="primary">
-          Learn More
-        </Button> */}
+        <Comment id={id} comment={comments} />
       </CardActions>
     </Card>
   );

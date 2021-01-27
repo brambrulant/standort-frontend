@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core";
 import { getMyLocationName } from "../../store/location/actions";
 import { selectMyLocation } from "../../store/location/selector";
 import { fetchPostsWithMyLocation } from "../../store/posts/actions";
-import { selectPosts } from "../../store/posts/selecor";
+import { selectPosts } from "../../store/posts/selectors";
 import Post from "./Post";
 
 export default function MainPage() {
@@ -17,7 +17,6 @@ export default function MainPage() {
   useEffect(() => {
     console.log("RENDER");
     if (location) {
-
       setButtonName(location);
       dispatch(fetchPostsWithMyLocation(location));
       console.log("POSTS", posts);
@@ -50,7 +49,6 @@ export default function MainPage() {
     setButtonName("Unable to retrieve your location");
     console.warn(`ERROR(${error.code}): ${error.message}`);
   }
-  console.log("1st post:", posts.length > 0 && posts[0]);
   return (
     <div>
       <Button onClick={showMyLocation}>{buttonName}</Button>

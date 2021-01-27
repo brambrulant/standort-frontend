@@ -6,7 +6,7 @@ import {
   showMessageWithTimeout,
   setMessage,
 } from "../appState/actions";
-import { selectToken } from "../user/selectors";
+import { selectToken } from "../user/selector";
 export const SUBMIT_POST_SUCCESS = "SUBMIT_POST_SUCCESS";
 export const DATA_RESPONSE = "DATA_RESPONSE";
 
