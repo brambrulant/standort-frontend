@@ -1,4 +1,4 @@
-import CreatePost from "../../components/CreatePost";
+import CreatePost from "../../components/CreatePost/CreatePost";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
