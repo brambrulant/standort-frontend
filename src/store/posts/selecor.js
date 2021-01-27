@@ -1,1 +1,1 @@
-export const selectPosts = (state) => state.postByLocation?.postsFromFeed;
+export const selectPosts = (state) => state.postByLocation?.postsFromFeed[0];

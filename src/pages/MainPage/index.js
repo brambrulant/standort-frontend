@@ -13,9 +13,11 @@ export default function MainPage() {
   const [buttonName, setButtonName] = useState("Show my location");
   const location = useSelector(selectMyLocation);
   const posts = useSelector(selectPosts);
+
   useEffect(() => {
     console.log("RENDER");
     if (location) {
+
       setButtonName(location);
       dispatch(fetchPostsWithMyLocation(location));
       console.log("POSTS", posts);
