@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { submitPost } from "../store/posts/actions";
 import MUIRichTextEditor from "mui-rte";
 import { tags } from "../config/constants";
+import TagDropdown from "../components/TagDropdown";
 const theme = createMuiTheme();
 
 // root, container, editor, and editorContainer
@@ -22,13 +23,13 @@ Object.assign(theme, {
   },
 });
 
-export default function CreateAPost() {
+export default function CreateAPost({ location = "The-Abysss" }) {
   const dispatch = useDispatch();
   const [state, setState] = useState({
     title: "",
     message: "",
     tags: [],
-    location: "",
+    location: location,
   });
 
   // input listeners
@@ -42,14 +43,18 @@ export default function CreateAPost() {
       : setState({ ...state, tags: [...state.tags, tag] });
   };
   const submit = () => dispatch(submitPost(state));
-  const tagButtonlist = tags.map((tag, i) => (
+
+  // make an input that can be filtered for tags, then
+  const selectedTags = state.tags.map((tag, i) => (
     <Chip
-      color={state.tags.includes(tag) ? "primary" : "default"}
+      color="primary"
       key={i}
       label={tag}
-      onClick={() => toggleTag(tag)}
+      onDelete={() => toggleTag(tag)}
       variant="default"
       className="tagChip"
+      icon={null} // create
+      size="small" // || "medium"
     ></Chip>
   ));
   //  https://www.npmjs.com/package/mui-rte
@@ -75,7 +80,8 @@ export default function CreateAPost() {
         />
       </MuiThemeProvider>
       <div style={styles.addTagsRow}>
-        {tagButtonlist}
+        {tags && <TagDropdown tags={tags} addTag={toggleTag} />}
+        {selectedTags}
         <Button onClick={submit} variant="contained">
           Post
         </Button>
