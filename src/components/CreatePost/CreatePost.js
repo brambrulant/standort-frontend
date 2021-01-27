@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { TextField, Button, createMuiTheme, MuiThemeProvider, Chip } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { submitPost } from "../store/posts/actions";
+import { submitPost } from "../../store/posts/actions";
 import MUIRichTextEditor from "mui-rte";
-import { tags } from "../config/constants";
-import TagDropdown from "../components/TagDropdown";
+import { tags } from "../../config/constants";
+import TagDropdown from "./TagDropdown";
 const theme = createMuiTheme();
 
 // root, container, editor, and editorContainer
@@ -13,9 +13,8 @@ Object.assign(theme, {
     MUIRichTextEditor: {
       root: {
         marginTop: 20,
-        // width: "45%",
         minHeight: "150px",
-        minWidth: "400px",
+        width: "100%",
         border: "1px solid grey",
         borderRadius: "8px",
       },
@@ -43,8 +42,7 @@ export default function CreateAPost({ location = "The-Abysss" }) {
       : setState({ ...state, tags: [...state.tags, tag] });
   };
   const submit = () => dispatch(submitPost(state));
-
-  // make an input that can be filtered for tags, then
+  const remaningTags = tags.filter((tag) => !state.tags.includes(tag));
   const selectedTags = state.tags.map((tag, i) => (
     <Chip
       color="primary"
@@ -80,9 +78,9 @@ export default function CreateAPost({ location = "The-Abysss" }) {
         />
       </MuiThemeProvider>
       <div style={styles.addTagsRow}>
-        {tags && <TagDropdown tags={tags} addTag={toggleTag} />}
+        {tags && <TagDropdown tags={remaningTags} addTag={toggleTag} />}
         {selectedTags}
-        <Button onClick={submit} variant="contained">
+        <Button onClick={submit} variant="contained" style={styles.post}>
           Post
         </Button>
       </div>
@@ -101,4 +99,5 @@ const styles = {
     marginLeft: "0px",
   },
   addTagsRow: {},
+  post: {},
 };
