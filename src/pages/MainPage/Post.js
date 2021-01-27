@@ -12,25 +12,13 @@ import Comment from "./Comment";
 import ReactMarkdown from "react-markdown";
 
 export default function Post({ post }) {
-  // return (
-  //   <div>
-  //     <h1>date: {post.createdAt}</h1>
-  //     <h2>location: {post.location}</h2>
-  //     <p>message {post.message}</p>
-  //     <p>created by {post.user}</p>
-  //     {post.comments &&
-  //       post.comments.map((comment) => <Comment key={comment.id} comment={comment} />)}
-  //   </div>
-  // );
   return (
     <Card>
       <CardActionArea>
-        {post.image ? (
-          <CardMedia image={post.image} title={`image of ${post.name}`} />
-        ) : null}
+        {post.image ? <CardMedia image={post.image} title={`image of ${post.name}`} /> : null}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {post.user}
+            {post.user.name}
           </Typography>
           <Typography gutterBottom variant="body2" component="p">
             {post.title}

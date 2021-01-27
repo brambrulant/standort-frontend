@@ -48,13 +48,12 @@ export default function MainPage() {
     setButtonName("Unable to retrieve your location");
     console.warn(`ERROR(${error.code}): ${error.message}`);
   }
-
+  console.log("1st post:", posts.length > 0 && posts[0]);
   return (
     <div>
       <Button onClick={showMyLocation}>{buttonName}</Button>
       <div className="posts">
-        {posts.length > 0 &&
-          posts.map((post, index) => <Post key={post.id} post={post} />)}
+        {posts.length > 0 && posts.map((post, index) => <Post key={post.id} post={post} />)}
       </div>
       <h4>Create Post</h4>
       <CreatePost location={location} />
