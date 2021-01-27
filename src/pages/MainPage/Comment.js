@@ -31,22 +31,24 @@ export default function Comment(props) {
             {openComment
              ? <Paper style={{ padding: "40px 20px" }}>
                  {comments.map((comment, index) => (
-                     <Grid key={index} container wrap="nowrap" spacing={2}>
-                         <Grid item>
-                             <Avatar alt="Remy Sharp" src={comment.user.profilePic === null ? defaultAvatarPicUrl : comment.user.profilePic} />
+                     <div>
+                         <Grid key={index} container wrap="nowrap" spacing={2}>
+                             <Grid item>
+                                 <Avatar alt="Remy Sharp" src={comment.user.profilePic === null ? defaultAvatarPicUrl : comment.user.profilePic} />
+                             </Grid>
+                             <Grid justifycontent="left" item xs zeroMinWidth>
+                                 <h4 style={{ margin: 0, textAlign: "left" }}>{comment.text}</h4>
+                                 <p style={{ textAlign: "left", color: "gray" }}>
+                                     posted: {comment.createdAt.split("T", 1)}
+                                     <br/>
+                                     created by: {comment.user.name}
+                                 </p>
+                             </Grid>
                          </Grid>
-                         <Grid justifycontent="left" item xs zeroMinWidth>
-                             <h4 style={{ margin: 0, textAlign: "left" }}>{comment.text}</h4>
-                             <p style={{ textAlign: "left", color: "gray" }}>
-                                 posted: {comment.createdAt.split("T", 1)}
-                                 <br/>
-                                 created by: {comment.user.name}
-                             </p>
-                         </Grid>
-                         {index > 0
+                         {index !== length - 1
                           ? <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
                           : null}
-                     </Grid>
+                     </div>
                  ))}
              </Paper>
              : null
