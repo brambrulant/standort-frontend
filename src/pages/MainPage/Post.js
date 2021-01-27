@@ -24,32 +24,30 @@ export default function Post({ post }) {
   // );
   return (
     <Card>
-      <ReactMarkdown>
-        <CardActionArea>
-          {post.image ? (
-            <CardMedia image={post.image} title={`image of ${post.name}`} />
-          ) : null}
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {post.title}
-            </Typography>
-            <Typography gutterBottom variant="body2" component="p">
-              {post.title}
-            </Typography>
-            <Typography variant="body1" color="textSecondary" component="p">
-              {post.message}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          {/* <Button size="small" color="primary">
+      <CardActionArea>
+        {post.image ? (
+          <CardMedia image={post.image} title={`image of ${post.name}`} />
+        ) : null}
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {post.user}
+          </Typography>
+          <Typography gutterBottom variant="body2" component="p">
+            {post.title}
+          </Typography>
+          <Typography variant="body1" color="textSecondary" component="p">
+            <ReactMarkdown>{post.message}</ReactMarkdown>
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        {/* <Button size="small" color="primary">
           {post.comments.length}
         </Button> */}
-          {/* <Button size="small" color="primary">
+        {/* <Button size="small" color="primary">
           Learn More
         </Button> */}
-        </CardActions>
-      </ReactMarkdown>
+      </CardActions>
     </Card>
   );
 }
