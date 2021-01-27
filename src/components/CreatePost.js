@@ -44,11 +44,11 @@ export default function CreateAPost() {
   const submit = () => dispatch(submitPost(state));
   const tagButtonlist = tags.map((tag, i) => (
     <Chip
-      color="primary"
+      color={state.tags.includes(tag) ? "primary" : "default"}
       key={i}
       label={tag}
       onClick={() => toggleTag(tag)}
-      variant={state.tags.includes(tag) ? "default" : "outlined"}
+      variant="default"
       className="tagChip"
     ></Chip>
   ));
