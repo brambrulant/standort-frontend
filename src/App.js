@@ -13,6 +13,7 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import { Jumbotron } from "react-bootstrap";
 import MainPage from "./pages/MainPage";
+import UploadImage from "./components/UploadImage";
 const Other = () => (
   <Jumbotron>
     <h1>Other</h1>
@@ -34,7 +35,7 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route path="/other" component={Other} />
+        <Route path="/other" component={UploadImage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>
