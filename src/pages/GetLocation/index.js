@@ -1,9 +1,10 @@
 import { makeStyles, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // redux stuff
 import { getMyLocationName, getLocationByString } from "../../store/location/actions";
+import { selectMyLocation } from "../../store/location/selector";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -23,6 +24,7 @@ export default function GetLocation() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [locationState, setLocationState] = useState({ status: "idle", message: "" });
+  const location = useSelector(selectMyLocation);
 
   function showMyLocation() {
     if (!navigator.geolocation) {
@@ -38,7 +40,8 @@ export default function GetLocation() {
 
   useEffect(() => {
     showMyLocation();
-  }, []);
+    if (location) setLocationState({ status: "success", message: `Welcome to ${location}` });
+  }, [location]);
   function successCallback(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;

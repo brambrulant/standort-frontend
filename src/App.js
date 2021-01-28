@@ -10,7 +10,7 @@ import Login from "./pages/Login";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
-import { selectMyLocation } from "./store/location/selector";
+import { selectLocationStatus } from "./store/location/selector";
 import { getUserWithStoredToken } from "./store/user/actions";
 import MainPage from "./pages/MainPage";
 
@@ -19,17 +19,17 @@ import GetLocation from "./pages/GetLocation";
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
-  const location = useSelector(selectMyLocation);
+  const locationStatus = useSelector(selectLocationStatus);
   useEffect(() => {
     dispatch(getUserWithStoredToken());
   }, [dispatch]);
-
+  console.log("location status:", locationStatus);
   return (
     <div className="App">
-      <Navigation location={location} />
+      <Navigation />
       <MessageBox />
       {isLoading ? <Loading /> : null}
-      {!location ? <GetLocation /> : null}
+      {!locationStatus && <GetLocation />}
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route path="/signup" component={SignUp} />
