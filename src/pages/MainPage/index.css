@@ -1,5 +1,4 @@
-.App {
-  font-family: "Roboto", sans-serif;
+.container {
   display: flex;
   flex-direction: column;
 }

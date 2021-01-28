@@ -13,7 +13,9 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { selectMyLocation } from "./store/location/selector";
 import { getUserWithStoredToken } from "./store/user/actions";
 import MainPage from "./pages/MainPage";
+
 import GetLocation from "./pages/GetLocation";
+
 
 function App() {
   const dispatch = useDispatch();
