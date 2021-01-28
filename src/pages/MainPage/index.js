@@ -12,7 +12,6 @@ export default function MainPage() {
   const dispatch = useDispatch();
 
   // states
-  const [buttonName, setButtonName] = useState("Show my location");
   const [CPVisibility, setCPVisibility] = useState(false); // CP = create post
 
   // redux selectors
@@ -20,43 +19,12 @@ export default function MainPage() {
   const posts = useSelector(selectPosts);
 
   useEffect(() => {
-    console.log("RENDER");
-    if (location) {
-      setButtonName(location);
-      dispatch(fetchPostsWithMyLocation(location));
-      console.log("POSTS", posts);
-    }
+    dispatch(fetchPostsWithMyLocation(location));
   }, [location, dispatch]);
 
-  function showMyLocation() {
-    if (!navigator.geolocation) {
-      setButtonName("Geolocation is not supported by your browser");
-    } else {
-      setButtonName("Locating...");
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    }
-  }
-
-  function successCallback(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-
-    console.log(`
-        LOCATION FIND SUCCESSFULLY;
-            latitude  : ${latitude},
-            longitude : ${longitude}  
-        `);
-
-    dispatch(getMyLocationName(latitude, longitude));
-  }
-
-  function errorCallback(error) {
-    setButtonName("Unable to retrieve your location");
-    console.warn(`ERROR(${error.code}): ${error.message}`);
-  }
   return (
     <div>
-      <Button onClick={showMyLocation}>{buttonName}</Button>
+      <h2>{location}</h2>
       <div className="posts">
         {posts.length > 0 && posts.map((post) => <Post key={post.id} post={post} />)}
       </div>
