@@ -26,11 +26,9 @@ export default function MainPage() {
 
   return (
 
-  
-    <div className="container">
-       <h2>{location}</h2>
+ <div className="container">
+      <h2>{location}</h2>
           <Button onClick={() => setCPVisibility(true)}>Create Post</Button>
-
       <div className="posts">
         <Grid container spacing={3}>
           {posts.length > 0 &&
