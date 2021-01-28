@@ -19,7 +19,6 @@ export default function Comment(props) {
   const commentsForPost = useSelector(selectMyComment);
 
   const length = comments && comments.length;
-  if (!comments || comments.length === 0) return <p>no comments</p>;
 
   function openListOfComments() {
     setCommentsToOpen(!openComments);
@@ -49,7 +48,7 @@ export default function Comment(props) {
     <>
       <p>{length > newCommentsLength ? length : newCommentsLength} comment</p>
       <ButtonGroup disableElevation variant="outlined" color="primary">
-        <Button onClick={() => openListOfComments(postId)} disabled={length === 0}>
+        <Button onClick={() => openListOfComments(postId)} disabled={length === 0 && newCommentsLength === -1}>
           see comments
         </Button>
         <Button onClick={addComment} disabled={user.token === null}>
