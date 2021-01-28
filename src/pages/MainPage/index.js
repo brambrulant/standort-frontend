@@ -19,7 +19,7 @@ export default function MainPage() {
   const posts = useSelector(selectPosts);
 
   useEffect(() => {
-    dispatch(fetchPostsWithMyLocation(location));
+    if (location) dispatch(fetchPostsWithMyLocation(location));
   }, [location, dispatch]);
 
   return (
