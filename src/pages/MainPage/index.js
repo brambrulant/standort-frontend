@@ -1,12 +1,14 @@
 import CreatePost from "../../components/CreatePost/CreatePost";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { Button, Modal, Paper } from "@material-ui/core";
 import { getMyLocationName } from "../../store/location/actions";
 import { selectMyLocation } from "../../store/location/selector";
 import { fetchPostsWithMyLocation } from "../../store/posts/actions";
 import { selectPosts } from "../../store/posts/selectors";
 import Post from "./Post";
+import "./index.css";
 
 export default function MainPage() {
   const dispatch = useDispatch();
@@ -23,12 +25,21 @@ export default function MainPage() {
   }, [location, dispatch]);
 
   return (
-    <div>
+
+ <div className="container">
       <h2>{location}</h2>
+          <Button onClick={() => setCPVisibility(true)}>Create Post</Button>
       <div className="posts">
-        {posts.length > 0 && posts.map((post) => <Post key={post.id} post={post} />)}
+        <Grid container spacing={3}>
+          {posts.length > 0 &&
+            posts.map((post) => <Post key={post.id} post={post} />)}
+        </Grid>
       </div>
-      <Button onClick={() => setCPVisibility(true)}>Create Post</Button>
+      <div className="create-post">
+        <h4>Create Post</h4>
+        <CreatePost location={location} />
+      </div>
+
       <Modal open={CPVisibility} onClose={() => setCPVisibility(false)}>
         <CreatePost location={location} closeModal={() => setCPVisibility(false)} />
       </Modal>
