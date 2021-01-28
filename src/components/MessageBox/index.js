@@ -13,7 +13,7 @@ export default function MessageBox() {
   return (
     <Alert
       show={showMessage}
-      variant={message.variant}
+      variant="dark"
       dismissible={message.dismissable}
       onClose={message.dismissable ? () => dispatch(clearMessage()) : null}
     >
