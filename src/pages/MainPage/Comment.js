@@ -5,7 +5,7 @@ import {
   Divider,
   Grid,
   makeStyles,
-  Paper,
+  Card,
   TextField,
 } from "@material-ui/core";
 import { useState } from "react";
@@ -32,6 +32,7 @@ export default function Comment({ comments, postId }) {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const commentsForPost = useSelector(selectMyComment);
+
   const classes = useStyles();
   const length = comments ? comments.length : 0;
 
@@ -39,7 +40,6 @@ export default function Comment({ comments, postId }) {
     setCommentsToOpen(!openComments);
     setAddCommentsToOpen(false);
     dispatch(getComments(postId));
-    console.log("commentsForPost", commentsForPost);
   }
 
   function addComment() {
@@ -59,29 +59,41 @@ export default function Comment({ comments, postId }) {
     }
   }
 
+  const cardStyle = {
+    display: "block",
+    width: "20vw",
+    height: "3vw",
+    color: "grey",
+  };
+  const avatarSize = {
+    width: "1px",
+    height: "1px",
+  };
+
   return (
-    <>
-      <p>{length > newCommentsLength ? length : newCommentsLength} comment</p>
+    <div className="comments">
       <ButtonGroup disableElevation variant="outlined" color="primary">
         <Button
           onClick={() => openListOfComments(postId)}
           disabled={length === 0 && newCommentsLength === -1}
         >
-          View comments
+          {length > newCommentsLength ? length : newCommentsLength} comments
         </Button>
         <Button onClick={addComment} disabled={user.token === null}>
           Add comment
         </Button>
       </ButtonGroup>
       {openComments ? (
-        <Paper style={{ padding: "20px 40px" }}>
+        <Card style={cardStyle}>
           {commentsForPost?.map((comment, index) => (
             <div key={index}>
-              {index !== 0 ? <Divider variant="fullWidth" style={{ margin: "10px 0" }} /> : null}
-              <Grid container wrap="nowrap" spacing={0}>
+              {index !== 0 ? (
+                <Divider variant="fullWidth" style={{ margin: "10px 0" }} />
+              ) : null}
+              <Grid container wrap="nowrap" spacing={2}>
                 <Grid item>
                   <Avatar
-                    alt="Remy Sharp"
+                    alt="Avatar"
                     src={
                       comment.user.profilePic === null
                         ? defaultAvatarPicUrl
@@ -95,16 +107,16 @@ export default function Comment({ comments, postId }) {
                     style={{
                       textAlign: "left",
                       color: "gray",
+
                       fontSize: "14px",
                       marginLeft: "5px",
                     }}
                   >
-                    {formatDistance(new Date(comment.createdAt), new Date())} ago by:{" "}
-                    {comment.user.name}
+                    {comment.user.name} {formatDistance(new Date(comment.createdAt), new Date())} ago
                   </p>
                   <p
                     style={{
-                      margin: 0,
+                      margin: 1,
                       textAlign: "left",
                     }}
                   >
@@ -114,35 +126,39 @@ export default function Comment({ comments, postId }) {
               </Grid>
             </div>
           ))}
-        </Paper>
+        </Card>
       ) : null}
       {openAddComment ? (
-        <div>
-          <h1>Add comment to post</h1>
-          <TextField
-            id="outlined-multiline-static"
-            label="Place your comment here and press Submit! button"
-            error={newCommentValue.length === 0}
-            helperText={newCommentValue.length === 0 ? "You comment could not be empty." : ""}
-            multiline
-            required
-            rows={4}
-            fullWidth
-            value={newCommentValue}
-            variant="outlined"
-            onChange={(event) => setNewCommentValue(event.target.value)}
-          />
-          <div>
-            <Button
-              onClick={() => handleSubmitNewComment(postId)}
-              variant="contained"
-              color="primary"
-            >
-              Submit!
-            </Button>
-          </div>
+        <div className="comment">
+          <Grid>
+            <TextField
+              id="outlined-multiline-static"
+              label="Place your comment here and press Submit! button"
+              error={newCommentValue.length === 0}
+              helperText={
+                newCommentValue.length === 0
+                  ? "You comment could not be empty."
+                  : ""
+              }
+              multiline
+              required
+              rows={4}
+              width="1vw"
+              value={newCommentValue}
+              variant="outlined"
+              onChange={(event) => setNewCommentValue(event.target.value)}
+            />
+            <div>
+              <Button
+                fullWidth="true"
+                onClick={() => handleSubmitNewComment(postId)}
+              >
+                Submit!
+              </Button>
+            </div>
+          </Grid>
         </div>
       ) : null}
-    </>
+    </div>
   );
 }
