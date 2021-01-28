@@ -26,13 +26,12 @@ export default function Comment(props) {
   const dispatch = useDispatch();
   const commentsForPost = useSelector(selectMyComment);
 
-  const length = comments && comments.length;
+  const length = comments && comments.length || 0;
 
   function openListOfComments() {
     setCommentsToOpen(!openComments);
     setAddCommentsToOpen(false);
     dispatch(getComments(postId));
-    console.log("commentsForPost", commentsForPost);
   }
 
   function addComment() {
