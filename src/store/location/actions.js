@@ -2,6 +2,7 @@ import axios from "axios";
 import { ACCESS_KEY } from "../../config/constants";
 
 export const SET_MY_LOCATION = "SET_MY_LOCATION";
+export const LOCATION_FOUND = "LOCATION_FOUND";
 export const LOCATION_NOT_FOUND = "LOCATION_NOT_FOUND";
 
 function setMyLocality(data) {
@@ -16,7 +17,6 @@ function setMyLocality(data) {
     return {
       type: LOCATION_NOT_FOUND,
     };
-
   return {
     type: SET_MY_LOCATION,
     payload: locality,
@@ -30,6 +30,7 @@ export const getMyLocationName = (latitude, longitude) => {
         `http://api.positionstack.com/v1/reverse?access_key=${ACCESS_KEY}&query=${latitude},${longitude}`
       );
       dispatch(setMyLocality(response.data.data[0]));
+      setTimeout(() => dispatch({ type: LOCATION_FOUND }), 2000);
     } catch (error) {
       console.log(error.message);
     }
@@ -42,6 +43,7 @@ export const getLocationByString = (string) => async (dispatch, getState) => {
       `http://api.positionstack.com/v1/forward?access_key=${ACCESS_KEY}&query=${string}`
     );
     dispatch(setMyLocality(response.data.data[0]));
+    setTimeout(() => dispatch({ type: LOCATION_FOUND }), 2000);
   } catch (e) {
     console.log(e.message);
   }
