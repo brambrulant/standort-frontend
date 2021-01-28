@@ -10,31 +10,28 @@ import Login from "./pages/Login";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
+import { selectMyLocation } from "./store/location/selector";
 import { getUserWithStoredToken } from "./store/user/actions";
-import { Jumbotron } from "react-bootstrap";
 import MainPage from "./pages/MainPage";
-const Other = () => (
-  <Jumbotron>
-    <h1>Other</h1>
-  </Jumbotron>
-);
+
+import GetLocation from "./pages/GetLocation";
 
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
-
+  const location = useSelector(selectMyLocation);
   useEffect(() => {
     dispatch(getUserWithStoredToken());
   }, [dispatch]);
 
   return (
     <div className="App">
-      <Navigation />
+      <Navigation location={location} />
       <MessageBox />
       {isLoading ? <Loading /> : null}
+      {!location ? <GetLocation /> : null}
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route path="/other" component={Other} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={Login} />
       </Switch>

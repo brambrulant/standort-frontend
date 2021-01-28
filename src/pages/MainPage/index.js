@@ -7,12 +7,12 @@ import { selectMyLocation } from "../../store/location/selector";
 import { fetchPostsWithMyLocation } from "../../store/posts/actions";
 import { selectPosts } from "../../store/posts/selectors";
 import Post from "./Post";
+import "./index.css";
 
 export default function MainPage() {
   const dispatch = useDispatch();
 
   // states
-  const [buttonName, setButtonName] = useState("Show my location");
   const [CPVisibility, setCPVisibility] = useState(false); // CP = create post
 
   // redux selectors
@@ -20,47 +20,24 @@ export default function MainPage() {
   const posts = useSelector(selectPosts);
 
   useEffect(() => {
-    console.log("RENDER");
-    if (location) {
-      setButtonName(location);
-      dispatch(fetchPostsWithMyLocation(location));
-      console.log("POSTS", posts);
-    }
+    if (location) dispatch(fetchPostsWithMyLocation(location));
   }, [location, dispatch]);
 
-  function showMyLocation() {
-    if (!navigator.geolocation) {
-      setButtonName("Geolocation is not supported by your browser");
-    } else {
-      setButtonName("Locating...");
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    }
-  }
-
-  function successCallback(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-
-    console.log(`
-        LOCATION FIND SUCCESSFULLY;
-            latitude  : ${latitude},
-            longitude : ${longitude}  
-        `);
-
-    dispatch(getMyLocationName(latitude, longitude));
-  }
-
-  function errorCallback(error) {
-    setButtonName("Unable to retrieve your location");
-    console.warn(`ERROR(${error.code}): ${error.message}`);
-  }
   return (
-    <div>
-      <Button onClick={showMyLocation}>{buttonName}</Button>
+
+ <div className="container">
+      <h2>{location}</h2>
+          <Button onClick={() => setCPVisibility(true)}>Create Post</Button>
       <div className="posts">
-        {posts.length > 0 && posts.map((post) => <Post key={post.id} post={post} />)}
+        <Grid container spacing={3}>
+          {posts.length > 0 &&
+            posts.map((post) => <Post key={post.id} post={post} />)}
+        </Grid>
       </div>
-      <Button onClick={() => setCPVisibility(true)}>Create Post</Button>
+      <div className="create-post">
+        <h4>Create Post</h4>
+        <CreatePost location={location} />
+      </div>
       <Modal open={CPVisibility} onClose={() => setCPVisibility(false)}>
         <CreatePost location={location} closeModal={() => setCPVisibility(false)} />
       </Modal>
