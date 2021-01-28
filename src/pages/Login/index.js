@@ -59,7 +59,7 @@ export default function Login() {
             id="standard-basic"
             placeholder="Enter password"
             onChange={(event) => setPassword(event.target.value)}
-            type="email"
+            type="password"
             value={password}
           />
         </Grid>
