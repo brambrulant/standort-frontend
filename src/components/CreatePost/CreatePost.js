@@ -8,6 +8,7 @@ import {
   Chip,
   Paper,
   makeStyles,
+  Typography,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { submitPost } from "../../store/posts/actions";
@@ -93,7 +94,7 @@ export default function CreatePost({ location = "The-Abysss", closeModal }) {
   // values are: "title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear", "save".
   return (
     <Paper className={classes.paper}>
-      <h3>Create a post</h3>
+      <Typography variant="h4">Create a post</Typography>
       <form noValidate autoComplete="off">
         <TextField
           id="outlined-Title"
