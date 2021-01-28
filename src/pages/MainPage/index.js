@@ -25,8 +25,10 @@ export default function MainPage() {
   }, [location, dispatch]);
 
   return (
+
+  
     <div className="container">
-      <h2>{location}</h2>
+       <h2>{location}</h2>
           <Button onClick={() => setCPVisibility(true)}>Create Post</Button>
 
       <div className="posts">

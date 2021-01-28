@@ -16,7 +16,6 @@ import MainPage from "./pages/MainPage";
 
 import GetLocation from "./pages/GetLocation";
 
-
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
