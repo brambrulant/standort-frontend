@@ -6,14 +6,12 @@ import {
   Grid,
   Card,
   TextField,
-  makeStyles,
 } from "@material-ui/core";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../store/user/selector";
 import { addCommentAction, getComments } from "../../store/comments/actions";
 import { selectMyComment } from "../../store/comments/selector";
-import { ThemeProvider } from "react-bootstrap";
 
 export default function Comment(props) {
   const defaultAvatarPicUrl =
