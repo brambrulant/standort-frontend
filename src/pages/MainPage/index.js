@@ -1,12 +1,13 @@
 import CreatePost from "../../components/CreatePost/CreatePost";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import { getMyLocationName } from "../../store/location/actions";
 import { selectMyLocation } from "../../store/location/selector";
 import { fetchPostsWithMyLocation } from "../../store/posts/actions";
 import { selectPosts } from "../../store/posts/selectors";
 import Post from "./Post";
+import "./index.css";
 
 export default function MainPage() {
   const dispatch = useDispatch();
@@ -50,13 +51,18 @@ export default function MainPage() {
     console.warn(`ERROR(${error.code}): ${error.message}`);
   }
   return (
-    <div>
+    <div className="container">
       <Button onClick={showMyLocation}>{buttonName}</Button>
       <div className="posts">
-        {posts.length > 0 && posts.map((post) => <Post key={post.id} post={post} />)}
+        <Grid container spacing={3}>
+          {posts.length > 0 &&
+            posts.map((post) => <Post key={post.id} post={post} />)}
+        </Grid>
       </div>
-      <h4>Create Post</h4>
-      <CreatePost location={location} />
+      <div className="create-post">
+        <h4>Create Post</h4>
+        <CreatePost location={location} />
+      </div>
     </div>
   );
 }
