@@ -1,7 +1,6 @@
 import CreatePost from "../../components/CreatePost/CreatePost";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Button, Modal, Paper } from "@material-ui/core";
 import { getMyLocationName } from "../../store/location/actions";
 import { selectMyLocation } from "../../store/location/selector";
@@ -39,7 +38,6 @@ export default function MainPage() {
         <h4>Create Post</h4>
         <CreatePost location={location} />
       </div>
-
       <Modal open={CPVisibility} onClose={() => setCPVisibility(false)}>
         <CreatePost location={location} closeModal={() => setCPVisibility(false)} />
       </Modal>
