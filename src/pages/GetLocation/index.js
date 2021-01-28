@@ -1,7 +1,8 @@
 import { makeStyles, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
 // redux stuff
 import { getMyLocationName, getLocationByString } from "../../store/location/actions";
 import { selectMyLocation } from "../../store/location/selector";
@@ -74,7 +75,10 @@ export default function GetLocation() {
         <>
           <h3>Please allow access to your location</h3>
           <h4>...Or search for your city</h4>
-          <TextField placeholder="Amsterdam" onKeyPress={SubmitOnEnter}></TextField>
+          <div>
+            <LocationOnIcon />
+            <TextField placeholder="Amsterdam" onKeyPress={SubmitOnEnter}></TextField>
+          </div>
         </>
       )}
     </div>
