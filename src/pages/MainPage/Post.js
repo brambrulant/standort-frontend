@@ -23,9 +23,6 @@ export default function Post({ post }) {
     <Grid item xs>
       <Card style={cardStyle}>
         <CardActionArea>
-          {post.image ? (
-            <CardMedia image={post.image} title={`image of ${post.name}`} />
-          ) : null}
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {post.user.name}
@@ -36,6 +33,10 @@ export default function Post({ post }) {
             <Typography variant="body1" color="textSecondary" component="p">
               <ReactMarkdown>{post.message}</ReactMarkdown>
             </Typography>
+              {post.picture ? <img src={post.picture} alt={`image of ${post.name}`} style={{
+              height: "200px",
+              width: "200px"
+            }}/> : null}
           </CardContent>
         </CardActionArea>
         <CardActions>

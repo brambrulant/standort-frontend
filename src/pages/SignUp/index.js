@@ -6,15 +6,13 @@ import {Link, useHistory} from "react-router-dom";
 import {Avatar, Button, Container, Fab, Grid, TextField, Typography,} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Loading from "../../components/Loading";
+import AddPhoto from "../../components/AddPhoto";
 
 export default function SignUp() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const APIBaseURL = "https://api.cloudinary.com/v1_1/ddqvaheia";
-    const [profilePictureUrl, setProfilePictureUrl] = useState("");
-    const [loadingProfilePicture, setLoadingProfilePicture] = useState(false);
+    const [profilePic, setProfilePic] = useState("");
 
     const dispatch = useDispatch();
     const token = useSelector(selectToken);
@@ -29,33 +27,17 @@ export default function SignUp() {
     function submitForm(event) {
         event.preventDefault();
 
-        dispatch(signUp(name, email, password, profilePictureUrl));
+        console.log("PROFILE PIC", profilePic)
+
+        dispatch(signUp(name, email, password, profilePic));
 
         setEmail("");
         setPassword("");
         setName("");
     }
 
-    async function uploadImage(e) {
-        const file = e.target.files;
-        const data = new FormData()
-        data.append("file", file[0])
-        data.append('upload_preset', "standort");
-        setLoadingProfilePicture(true)
-
-        fetch(`${APIBaseURL}/image/upload`, {
-            method: 'POST',
-            body: data,
-        })
-            .then(response => response.json())
-            .then((data) => {
-                if (data.secure_url !== '') {
-                    const uploadedFileUrl = data.secure_url;
-                    console.log(uploadedFileUrl);
-                    setProfilePictureUrl(uploadedFileUrl)
-                }
-            }).then(() => setLoadingProfilePicture(false))
-            .catch(err => console.error(err));
+    const handleProfilePicture = (profilePictureUrl) => {
+        setProfilePic(profilePictureUrl);
     }
 
     return (
@@ -108,52 +90,9 @@ export default function SignUp() {
                         value={password}
                     />
                 </Grid>
-                <Grid style={{
-                    marginTop: "30px",
-                    marginBottom: "30px"
-                }}>
-                    <label htmlFor="upload-photo">
-                        <input
-                            style={{display: "none"}}
-                            id="upload-photo"
-                            name="upload-photo"
-                            type="file"
-                            onChange={uploadImage}
-                        />
-                        <Fab
-                            color="primary"
-                            size="small"
-                            component="span"
-                            aria-label="add"
-                            variant="extended"
-                            style={{padding: '10px'}}
-                        >
-                            <AddIcon style={{marginRight: '10px'}}/> Upload photo
-                        </Fab>
-                    </label>
 
-                    <Typography variant="body1" gutterBottom>
-                        add profile picture
-                    </Typography>
+                <AddPhoto onProfilePictureUpd={handleProfilePicture} buttonName="add profile picture" rounded={true}/>
 
-                    {loadingProfilePicture
-                     ? <Loading/>
-                     : profilePictureUrl !== ""
-                       ? <div style={{
-                                marginTop: "30px",
-                                marginBottom: "30px"
-                            }}>
-                           <Avatar style={{
-                               width: '150px',
-                               height: '150px'
-                           }}
-                                   alt={name}
-                                   src={profilePictureUrl}
-                           />
-                       </div>
-                       : null
-                    }
-                </Grid>
                 <Grid>
                     <Button type="submit" onClick={submitForm}>
                         sign up
