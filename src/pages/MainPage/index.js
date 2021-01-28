@@ -53,7 +53,7 @@ export default function MainPage() {
     <div>
       <Button onClick={showMyLocation}>{buttonName}</Button>
       <div className="posts">
-        {posts.length > 0 && posts.map((post, index) => <Post key={post.id} post={post} />)}
+        {posts.length > 0 && posts.map((post) => <Post key={post.id} post={post} />)}
       </div>
       <h4>Create Post</h4>
       <CreatePost location={location} />
