@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@material-ui/core";
+import {Card, CardActionArea, CardActions, CardContent, Typography,} from "@material-ui/core";
 import React from "react";
 import Comment from "./Comment";
 import ReactMarkdown from "react-markdown";
@@ -15,7 +8,6 @@ export default function Post({ post }) {
   return (
     <Card>
       <CardActionArea>
-        {post.image ? <CardMedia image={post.image} title={`image of ${post.name}`} /> : null}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {post.user.name}
@@ -26,6 +18,10 @@ export default function Post({ post }) {
           <Typography variant="body1" color="textSecondary" component="p">
             <ReactMarkdown>{post.message}</ReactMarkdown>
           </Typography>
+          {post.picture ? <img src={post.picture} alt={`image of ${post.name}`} style={{
+            height: "200px",
+            width: "200px"
+          }}/> : null}
         </CardContent>
       </CardActionArea>
       <CardActions>
