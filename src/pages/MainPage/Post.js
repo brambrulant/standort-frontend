@@ -40,7 +40,7 @@ export default function Post({ post }) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Comment id={id} comment={comments} />
+          <Comment postId={id} comments={comments} />
         </CardActions>
       </Card>
     </Grid>
