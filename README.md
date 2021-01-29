@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/brambrulant/standort-frontend/development/public/favicon.ico">STANDORT
+# <img src="https://raw.githubusercontent.com/brambrulant/standort-frontend/development/public/favicon.ico">CAIRN
 
 
 ## The idea
