@@ -13,7 +13,7 @@ import {
 import { useDispatch } from "react-redux";
 import { submitPost } from "../../store/posts/actions";
 import MUIRichTextEditor from "mui-rte";
-import { tags } from "../../config/constants";
+import tags from "../../config/tags";
 import TagDropdown from "./TagDropdown";
 import { draftToMarkdown } from "markdown-draft-js";
 import AddPhoto from "../AddPhoto";
@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     left: "30%",
   },
   tagRow: {},
+  chip: {
+    marginLeft: "5px",
+  },
 }));
 
 export default function CreatePost({ location = "The-Abysss", closeModal }) {
@@ -67,9 +70,15 @@ export default function CreatePost({ location = "The-Abysss", closeModal }) {
   };
 
   const toggleTag = (tag) => {
-    state.tags.includes(tag)
-      ? setState({ ...state, tags: state.tags.filter((atag) => tag !== atag) })
-      : setState({ ...state, tags: [...state.tags, tag] });
+    const tagNames = state.tags.map((tag) => tag.name);
+
+    if (tagNames.includes(tag.name))
+      return setState({
+        ...state,
+        tags: state.tags.filter((anotherTag) => tag.name !== anotherTag.name),
+      });
+    if (tagNames.length > 2) return;
+    setState({ ...state, tags: [...state.tags, tag] });
   };
   const submit = () => {
     // Convert from Draft.js ContentState object into a markdown string
@@ -78,19 +87,22 @@ export default function CreatePost({ location = "The-Abysss", closeModal }) {
     dispatch(submitPost({ ...state, message: markdownString, location, picture: picture }));
     closeModal();
   };
-  const remaningTags = tags.filter((tag) => !state.tags.includes(tag));
-  const selectedTags = state.tags.map((tag, i) => (
-    <Chip
-      color="primary"
-      key={i}
-      label={tag}
-      onDelete={() => toggleTag(tag)}
-      variant="default"
-      className="tagChip"
-      icon={null} // create
-      size="small"
-    ></Chip>
-  ));
+  const remaningTags = tags.filter((tag) => !state.tags.map((tag) => tag.name).includes(tag.name));
+  const selectedTags = state.tags.map((tag, i) => {
+    const { Icon, name } = tag;
+    return (
+      <Chip
+        color="primary"
+        key={i}
+        label={name}
+        onDelete={() => toggleTag(tag)}
+        variant="default"
+        className={classes.chip}
+        icon={<Icon />} // create
+        abcd="3px"
+      ></Chip>
+    );
+  });
   //  https://www.npmjs.com/package/mui-rte
   //  decide on toolbar controls
   // values are: "title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear", "save".
@@ -98,7 +110,7 @@ export default function CreatePost({ location = "The-Abysss", closeModal }) {
   const handleProfilePicture = (profilePictureUrl) => {
     console.log(profilePictureUrl);
     setPicture(profilePictureUrl);
-  }
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -123,11 +135,17 @@ export default function CreatePost({ location = "The-Abysss", closeModal }) {
           />
         </MuiThemeProvider>
         <div className={classes.tagRow}>
-          <div style={{marginTop: '20px', marginBottom: '20px'}}>
-            <div style={{marginBottom: '10px'}}>{tags && <TagDropdown tags={remaningTags} addTag={toggleTag} />}</div>
+          <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+            <div style={{ marginBottom: "10px" }}>
+              {tags && <TagDropdown tags={remaningTags} addTag={toggleTag} />}
+            </div>
             <div>{selectedTags}</div>
           </div>
-          <AddPhoto onProfilePictureUpd={handleProfilePicture} buttonName="add photo the post" rounded={false}/>
+          <AddPhoto
+            onProfilePictureUpd={handleProfilePicture}
+            buttonName="add photo the post"
+            rounded={false}
+          />
 
           <Button onClick={submit} variant="contained">
             Post

@@ -4,6 +4,7 @@ import { ACCESS_KEY } from "../../config/constants";
 export const SET_MY_LOCATION = "SET_MY_LOCATION";
 export const LOCATION_FOUND = "LOCATION_FOUND";
 export const LOCATION_NOT_FOUND = "LOCATION_NOT_FOUND";
+export const NEW_LOCATION_STATUS = "NEW_LOCATION_STATUS";
 
 function setMyLocality(data) {
   let locality;
@@ -23,6 +24,10 @@ function setMyLocality(data) {
   };
 }
 
+const setlocationStatus = (status) => ({
+  type: NEW_LOCATION_STATUS,
+});
+
 export const getMyLocationName = (latitude, longitude) => {
   return async (dispatch) => {
     try {
@@ -30,7 +35,7 @@ export const getMyLocationName = (latitude, longitude) => {
         `http://api.positionstack.com/v1/reverse?access_key=${ACCESS_KEY}&query=${latitude},${longitude}`
       );
       dispatch(setMyLocality(response.data.data[0]));
-      setTimeout(() => dispatch({ type: LOCATION_FOUND }), 2000);
+      setTimeout(() => dispatch({ type: LOCATION_FOUND }), 1500);
     } catch (error) {
       console.log(error.message);
     }
@@ -42,9 +47,10 @@ export const getLocationByString = (string) => async (dispatch, getState) => {
     const response = await axios.get(
       `http://api.positionstack.com/v1/forward?access_key=${ACCESS_KEY}&query=${string}`
     );
+    if (response.data.data.length < 1) return dispatch(setlocationStatus("Not Found"));
     dispatch(setMyLocality(response.data.data[0]));
-    setTimeout(() => dispatch({ type: LOCATION_FOUND }), 2000);
+    setTimeout(() => dispatch(setlocationStatus("Found")), 1500);
   } catch (e) {
-    console.log(e.message);
+    console.error("error:", e.message);
   }
 };

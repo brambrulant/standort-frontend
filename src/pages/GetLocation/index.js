@@ -1,11 +1,11 @@
-import { makeStyles, TextField } from "@material-ui/core";
+import { CircularProgress, makeStyles, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
 // redux stuff
 import { getMyLocationName, getLocationByString } from "../../store/location/actions";
-import { selectMyLocation } from "../../store/location/selector";
+import { selectLocationStatus, selectMyLocation } from "../../store/location/selector";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,11 +20,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
   },
 }));
+const randomLoadingStatuses = [
+  "Finding your location",
+  "Tracking your location",
+  "retasking national surveillance agents to current location",
+  "Executing order 66",
+];
 
 export default function GetLocation() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [locationState, setLocationState] = useState({ status: "idle", message: "" });
+  const locationStatus = useSelector(selectLocationStatus);
   const location = useSelector(selectMyLocation);
 
   function showMyLocation() {
@@ -34,15 +41,17 @@ export default function GetLocation() {
         message: "Sorry, Geolocation is not supported by your browser",
       });
     } else {
-      setLocationState({ status: "loading", message: "Locating..." });
+      setLocationState({ status: "loading", message: "Finding your location" });
       navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
     }
   }
 
   useEffect(() => {
-    showMyLocation();
-    if (location) setLocationState({ status: "success", message: `Welcome to ${location}` });
-  }, [location]);
+    if (locationStatus === "Not Found")
+      setLocationState({ status: "Not Found", message: "location not found" });
+    else if (!location) showMyLocation();
+    else setLocationState({ status: "success", message: `Welcome to ${location}` });
+  }, [location, locationStatus]);
   function successCallback(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
@@ -71,9 +80,10 @@ export default function GetLocation() {
   return (
     <div className={classes.container}>
       <h1>{locationState.message}</h1>
-      {(locationState.status === "blocked" || locationState.status === "unsupported") && (
+      {locationState.status === "loading" && <CircularProgress />}
+      {(locationState.status !== "loading" || locationState.status === "success") && (
         <>
-          <h3>Please allow access to your location</h3>
+          <h3>allow location access in your website settings</h3>
           <h4>...Or search for your city</h4>
           <div>
             <LocationOnIcon />
