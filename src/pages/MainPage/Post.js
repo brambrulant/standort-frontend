@@ -5,11 +5,10 @@ import {
   CardActions,
   CardContent,
   Chip,
-  Grid,
+  Grid, GridListTile,
   Typography,
 } from "@material-ui/core";
 import ReadMoreReact from "read-more-react";
-
 import React from "react";
 import CommentSection from "./CommentSection";
 import "./Post.css";
@@ -19,21 +18,22 @@ export default function Post({ post }) {
   const { comments, id, tags } = post;
 
   const cardStyle = {
-    display: "block",
-    width: "20vw",
-    height: "30vw",
-    overflow: "auto",
+    // display: "block",
+     width: "350px",
+    margin: '10px',
+    // // height: "30vw",
+    // overflow: "auto",
   };
 
   const tagChips = tags.map((tagName, i) => {
-    const Icon = tagList.find((tag) => tag.name === tagName).Icon;
+    const Icon = tagList.find((tag) => tag.name === tagName)?.Icon;
     return (
       <Chip
         color="primary"
+        style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}}
         key={i}
         label={tagName}
         variant="default"
-        // className={classes.chip}
         icon={<Icon />}
         abcd="3px"
       ></Chip>
@@ -41,12 +41,11 @@ export default function Post({ post }) {
   });
 
   return (
-    <Grid item xs>
       <Card style={cardStyle}>
         <CardActionArea>
           <CardContent>
             <div className="post-title">
-              <Avatar alt={post.user.name} src={post.user.profilePic}/>
+              <Avatar alt={post.user.name} src={post.user.profilePic} />
               <Typography gutterBottom variant="h5" component="h2" className="post-user-name">
                 {post.user.name}
               </Typography>
@@ -54,36 +53,29 @@ export default function Post({ post }) {
             <Typography gutterBottom variant="body2" component="p">
               {post.title}
             </Typography>
-            <Typography variant="body1" color="textSecondary" component="p">
-              <ReadMoreReact
-                text={post.message}
-                readMoreText={<p style={{ color: "black" }}>read more...</p>}
-              />
+            <Typography variant="body1" color="textSecondary" component="div">
+              <ReadMoreReact text={post.message} readMoreText="read more..." />
             </Typography>
             {post.picture ? (
               <img
                 src={post.picture}
                 alt={`${post.name}`}
                 style={{
-                  height: "200px",
-                  width: "200px",
+                  maxHeight: "200px",
+                  maxWidth: "200px",
+                  display: "block",
+                  borderRadius: "10px",
                 }}
               />
             ) : null}
             {tagChips}
             <CardActions>
               <Grid>
-                <CommentSection
-                  postId={id}
-                  comments={comments}
-                  alignSelf="flex-end"
-                />
+                <CommentSection postId={id} comments={comments} alignSelf="flex-end" />
               </Grid>
             </CardActions>
-
           </CardContent>
         </CardActionArea>
       </Card>
-    </Grid>
   );
 }
