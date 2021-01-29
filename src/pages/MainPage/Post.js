@@ -52,11 +52,8 @@ export default function Post({ post }) {
             <Typography gutterBottom variant="body2" component="p">
               {post.title}
             </Typography>
-            <Typography variant="body1" color="textSecondary" component="p">
-              <ReadMoreReact
-                text={post.message}
-                readMoreText={<p style={{ color: "black" }}>read more...</p>}
-              />
+            <Typography variant="body1" color="textSecondary" component="div">
+              <ReadMoreReact text={post.message} readMoreText="read more..." />
             </Typography>
             {post.picture ? (
               <img
