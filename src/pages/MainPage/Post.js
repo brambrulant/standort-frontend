@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import ReadMoreReact from "read-more-react";
-
 import React from "react";
 import CommentSection from "./CommentSection";
 import "./Post.css";
@@ -33,7 +32,6 @@ export default function Post({ post }) {
         key={i}
         label={tagName}
         variant="default"
-        // className={classes.chip}
         icon={<Icon />}
         abcd="3px"
       ></Chip>
@@ -65,8 +63,10 @@ export default function Post({ post }) {
                 src={post.picture}
                 alt={`${post.name}`}
                 style={{
-                  height: "200px",
-                  width: "200px",
+                  maxHeight: "200px",
+                  maxWidth: "200px",
+                  display: "block",
+                  borderRadius: "10px",
                 }}
               />
             ) : null}
