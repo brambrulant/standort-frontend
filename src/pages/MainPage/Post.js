@@ -16,6 +16,7 @@ import CommentSection from "./CommentSection";
 import "./Post.css";
 import tagList from "../../config/tags";
 import { formatDistance } from "date-fns";
+import ReactMarkdown from "react-markdown";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -55,17 +56,27 @@ export default function Post({ post }) {
     <Card style={cardStyle}>
       <CardActionArea>
         <CardContent>
-          <Typography gutterBottom variant="h6" component="h2" className="post-user-name">
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="h2"
+            className="post-user-name"
+          >
             {post.title}
           </Typography>
           <div className="post-title">
-            <Avatar className={classes.avatar} alt={post.user.name} src={post.user.profilePic} />
+            <Avatar
+              className={classes.avatar}
+              alt={post.user.name}
+              src={post.user.profilePic}
+            />
             <Typography gutterBottom variant="body2" component="p">
-              {post.user.name}, {formatDistance(new Date(createdAt), new Date())} ago
+              {post.user.name},{" "}
+              {formatDistance(new Date(createdAt), new Date())} ago
             </Typography>
           </div>
           <Typography variant="body1" color="default" component="div">
-            <ReadMoreReact text={post.message} readMoreText="read more..." />
+            <ReactMarkdown>{post.message}</ReactMarkdown>
           </Typography>
           {post.picture ? (
             <img
@@ -82,7 +93,11 @@ export default function Post({ post }) {
           {tagChips}
           <CardActions>
             <Grid>
-              <CommentSection postId={id} comments={comments} alignSelf="flex-end" />
+              <CommentSection
+                postId={id}
+                comments={comments}
+                alignSelf="flex-end"
+              />
             </Grid>
           </CardActions>
         </CardContent>
