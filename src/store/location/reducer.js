@@ -1,13 +1,13 @@
-import { SET_MY_LOCATION, LOCATION_FOUND } from "./actions";
+import { SET_MY_LOCATION, LOCATION_FOUND, NEW_LOCATION_STATUS } from "./actions";
 
-const initialState = { status: false, location: null };
+const initialState = { status: null, location: null };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_MY_LOCATION:
       return { ...state, location: action.payload };
-    case LOCATION_FOUND:
-      return { ...state, status: true };
+    case NEW_LOCATION_STATUS:
+      return { ...state, status: action.payload };
     default:
       return state;
   }

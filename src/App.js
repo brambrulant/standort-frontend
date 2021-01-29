@@ -23,7 +23,6 @@ function App() {
   useEffect(() => {
     dispatch(getUserWithStoredToken());
   }, [dispatch]);
-  console.log("location status:", locationStatus);
   return (
     <div className="App">
       <Navigation />

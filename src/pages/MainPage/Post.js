@@ -4,21 +4,39 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Chip,
   Grid,
   Typography,
 } from "@material-ui/core";
 import React from "react";
 import CommentSection from "./CommentSection";
 import ReactMarkdown from "react-markdown";
+import tagList from "../../config/tags";
 
 export default function Post({ post }) {
-  const { comments, id } = post;
+  const { comments, id, tags } = post;
 
   const cardStyle = {
     display: "block",
     width: "20vw",
     height: "30vw",
   };
+
+  const tagChips = tags.map((tagName, i) => {
+    const Icon = tagList.find((tag) => tag.name === tagName).Icon;
+    return (
+      <Chip
+        color="primary"
+        key={i}
+        label={tagName}
+        variant="default"
+        // className={classes.chip}
+        icon={<Icon />}
+        abcd="3px"
+      ></Chip>
+    );
+  });
+
   return (
     <Grid item xs>
       <Card style={cardStyle}>
@@ -43,6 +61,7 @@ export default function Post({ post }) {
                 }}
               />
             ) : null}
+            {tagChips}
           </CardContent>
         </CardActionArea>
         <CardActions>
