@@ -29,6 +29,7 @@ export default function Post({ post }) {
     return (
       <Chip
         color="primary"
+        style={{marginTop: "10px", marginBottom: "10px", marginRight: "10px"}}
         key={i}
         label={tagName}
         variant="default"
