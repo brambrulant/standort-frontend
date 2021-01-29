@@ -1,12 +1,4 @@
-import {
-  Button,
-  ButtonGroup,
-  Grid,
-  Card,
-  TextField,
-  Box,
-  Paper,
-} from "@material-ui/core";
+import { Button, ButtonGroup, Grid, TextField, Paper } from "@material-ui/core";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../store/user/selector";
@@ -29,7 +21,6 @@ export default function CommentSection({ comments, postId }) {
     setCommentsToOpen(!openComments);
     setAddCommentsToOpen(false);
     dispatch(getComments(postId));
-    console.log([postId, "jalallaa"]);
   }
 
   function addComment() {
@@ -49,9 +40,14 @@ export default function CommentSection({ comments, postId }) {
     }
   }
 
+  const SubmitOnEnter = (e) => {
+    if (e.key === "Enter") {
+      handleSubmitNewComment(postId);
+    }
+  };
+
   return (
     <div className="comment">
-      <Grid></Grid>
       {openComments ? (
         <Paper style={{ maxHeight: 200, overflow: "auto" }}>
           {commentsForPost?.map((comment, index) => (
@@ -64,14 +60,10 @@ export default function CommentSection({ comments, postId }) {
           <Grid container justify="center" margin="20px" spacing={1}>
             <TextField
               id="outlined-multiline-static"
-              label="Place your comment here"
-              margin="1vw"
+              label="My comment"
+              margin="normal"
               error={newCommentValue.length === 0}
-              helperText={
-                newCommentValue.length === 0
-                  ? "Your comment could not be empty."
-                  : ""
-              }
+              helperText={newCommentValue.length === 0 ? "Your comment cannot be empty." : ""}
               multiline
               required
               rows={1}
@@ -79,19 +71,13 @@ export default function CommentSection({ comments, postId }) {
               value={newCommentValue}
               variant="outlined"
               onChange={(event) => setNewCommentValue(event.target.value)}
+              onKeyPress={SubmitOnEnter}
             />
-            <Button onClick={() => handleSubmitNewComment(postId)}>
-              submit
-            </Button>
+            <Button onClick={() => handleSubmitNewComment(postId)}>submit</Button>
           </Grid>
         </div>
       ) : null}
-      <ButtonGroup
-        disableElevation
-        variant="outlined"
-        color="dark"
-        size="small"
-      >
+      <ButtonGroup disableElevation variant="outlined" color="default" size="small">
         <Button
           onClick={() => openListOfComments(postId)}
           disabled={length === 0 && newCommentsLength === -1}
