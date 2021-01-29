@@ -20,8 +20,10 @@ export default function Navigation() {
   return (
     <Navbar expand="lg">
       <Navbar.Brand as={NavLink} to="/">
-        CAIRN
-        <img alt="logo" src={cairnsLogo} width="30px" height="30px"></img>
+        CAIRN <img alt="logo" src={cairnsLogo} width="30px" height="30px"></img>
+        <span style={{ fontSize: "13px" }}>
+          /kɛːn/ - Man-made pile of stones. Often erected as a sign for future travellers
+        </span>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
