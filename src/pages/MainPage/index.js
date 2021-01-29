@@ -56,7 +56,7 @@ export default function MainPage() {
   return (
     <>
       <div className="container">
-        <div style={{ margin: "0 auto" }}>
+        <div>
           <FilterByTag {...{ filterTags, setFilterTags }} />
           <Button
             onClick={() => setCPVisibility(true)}
@@ -65,7 +65,7 @@ export default function MainPage() {
             color="secondary"
             size="large"
             startIcon={<EditLocationIcon />}
-            style={{ width: "fit-content", margin: "20px auto 20px auto" }}
+            style={{ width: "fit-content", position: "relative", left: "15%", bottom: -25 }}
           >
             Leave your Mark
           </Button>

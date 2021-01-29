@@ -14,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
     maxWidth: 300,
+    position: "relative",
+    left: 0,
   },
   chips: {
     display: "flex",
@@ -30,7 +32,7 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
+      width: 130,
     },
   },
 };
@@ -44,7 +46,7 @@ export default function FilterByTag({ filterTags, setFilterTags }) {
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel id="mutiple-chip-label">Filter By Tags</InputLabel>
+      <InputLabel id="mutiple-chip-label">Filter Activities</InputLabel>
       <Select
         labelId="mutiple-chip-label"
         id="demo-mutiple-chip"
@@ -52,6 +54,7 @@ export default function FilterByTag({ filterTags, setFilterTags }) {
         value={filterTags}
         onChange={handleChange}
         input={<Input id="select-multiple-chip" />}
+        autoWidth={true}
         renderValue={(selected) => (
           <div className={classes.chips}>
             {selected.map((value) => (
