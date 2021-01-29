@@ -1,3 +1,14 @@
 .posts {
   display: flex;
 }
+
+.post-title {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.post-user-name {
+  margin: 0;
+  padding-left: 10px;
+}

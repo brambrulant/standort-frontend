@@ -1,9 +1,9 @@
 import {
+  Avatar,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
-  CardMedia,
   Chip,
   Grid,
   Typography,
@@ -12,7 +12,7 @@ import ReadMoreReact from "read-more-react";
 
 import React from "react";
 import CommentSection from "./CommentSection";
-import ReactMarkdown from "react-markdown";
+import "./Post.css";
 import tagList from "../../config/tags";
 
 export default function Post({ post }) {
@@ -45,9 +45,12 @@ export default function Post({ post }) {
       <Card style={cardStyle}>
         <CardActionArea>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {post.user.name}
-            </Typography>
+            <div className="post-title">
+              <Avatar alt={post.user.name} src={post.user.profilePic}/>
+              <Typography gutterBottom variant="h5" component="h2" className="post-user-name">
+                {post.user.name}
+              </Typography>
+            </div>
             <Typography gutterBottom variant="body2" component="p">
               {post.title}
             </Typography>
