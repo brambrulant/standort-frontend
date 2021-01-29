@@ -27,18 +27,21 @@ export default function MainPage() {
   return (
     <>
       <div className="container">
-        <h2>{location}</h2>
         <Button onClick={() => setCPVisibility(true)} disabled={!userToken}>
           Create Post
         </Button>
         <div className="posts">
           <Grid container spacing={3}>
-            {posts.length > 0 && posts.map((post) => <Post key={post.id} post={post} />)}
+            {posts.length > 0 &&
+              posts.map((post) => <Post key={post.id} post={post} />)}
           </Grid>
         </div>
       </div>
       <Modal open={CPVisibility} onClose={() => setCPVisibility(false)}>
-        <CreatePost location={location} closeModal={() => setCPVisibility(false)} />
+        <CreatePost
+          location={location}
+          closeModal={() => setCPVisibility(false)}
+        />
       </Modal>
     </>
   );
