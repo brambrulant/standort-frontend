@@ -7,6 +7,7 @@ import { selectToken } from "../../store/user/selector";
 import NavbarItem from "./NavbarItem";
 import LoggedIn from "./LoggedIn";
 import LoggedOut from "./LoggedOut";
+import cairnsLogo from "../../cairns-logo-processing.png";
 
 export default function Navigation() {
   const token = useSelector(selectToken);
@@ -16,7 +17,8 @@ export default function Navigation() {
   return (
     <Navbar expand="lg">
       <Navbar.Brand as={NavLink} to="/">
-        CAIRNS
+        CAIRN
+        <img alt="logo" src={cairnsLogo} width="30px" height="30px"></img>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

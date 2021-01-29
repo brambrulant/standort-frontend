@@ -4,8 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
 // redux stuff
-import { getMyLocationName, getLocationByString } from "../../store/location/actions";
-import { selectLocationStatus, selectMyLocation } from "../../store/location/selector";
+import {
+  getMyLocationName,
+  getLocationByString,
+} from "../../store/location/actions";
+import {
+  selectLocationStatus,
+  selectMyLocation,
+} from "../../store/location/selector";
+import gif from "../../cairns-loading.gif";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -30,7 +37,10 @@ const randomLoadingStatuses = [
 export default function GetLocation() {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [locationState, setLocationState] = useState({ status: "idle", message: "" });
+  const [locationState, setLocationState] = useState({
+    status: "idle",
+    message: "",
+  });
   // const locationStatus = useSelector(selectLocationStatus);
   const location = useSelector(selectMyLocation);
 
@@ -50,7 +60,11 @@ export default function GetLocation() {
     // if (locationStatus === "Not Found")
     //   setLocationState({ status: "Not Found", message: "location not found" });
     if (!location) showMyLocation();
-    else setLocationState({ status: "success", message: `Welcome to ${location}` });
+    else
+      setLocationState({
+        status: "success",
+        message: `Welcome to ${location}`,
+      });
   }, [location]);
   function successCallback(position) {
     const latitude = position.coords.latitude;
@@ -66,7 +80,10 @@ export default function GetLocation() {
   }
 
   function errorCallback(error) {
-    setLocationState({ status: "blocked", message: "Unable to retrieve your location" });
+    setLocationState({
+      status: "blocked",
+      message: "Unable to retrieve your location",
+    });
     console.warn(`ERROR(${error.code}): ${error.message}`);
   }
   const SubmitOnEnter = (e) => {
@@ -80,14 +97,20 @@ export default function GetLocation() {
   return (
     <div className={classes.container}>
       <h1>{locationState.message}</h1>
-      {locationState.status === "loading" && <CircularProgress />}
-      {(locationState.status === "blocked" || locationState.status === "unsupported") && (
+      {locationState.status === "loading" && (
+        <img src={gif} width="400px" height="400px" alt="Logo" />
+      )}
+      {(locationState.status === "blocked" ||
+        locationState.status === "unsupported") && (
         <>
           <h3>allow location access in your website settings</h3>
           <h4>...Or search for your city</h4>
           <div>
             <LocationOnIcon />
-            <TextField placeholder="Amsterdam" onKeyPress={SubmitOnEnter}></TextField>
+            <TextField
+              placeholder="Amsterdam"
+              onKeyPress={SubmitOnEnter}
+            ></TextField>
           </div>
         </>
       )}
