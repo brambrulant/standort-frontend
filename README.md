@@ -17,7 +17,7 @@ It would be very useful to help travellers get the best experiences out of their
 
 ## User Stories
 
-1. As a user I am able to log in:
+1. As a user I am able to log in
     - name
     - email
     - password
