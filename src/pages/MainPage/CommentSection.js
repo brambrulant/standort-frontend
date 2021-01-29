@@ -1,9 +1,9 @@
-import { Button, ButtonGroup, Grid, TextField, Paper } from "@material-ui/core";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../store/user/selector";
-import { addCommentAction, getComments } from "../../store/comments/actions";
-import { selectMyComment } from "../../store/comments/selector";
+import {Button, ButtonGroup, Grid, Paper, TextField} from "@material-ui/core";
+import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {selectUser} from "../../store/user/selector";
+import {addCommentAction, getComments} from "../../store/comments/actions";
+import {selectMyComment} from "../../store/comments/selector";
 import Comment from "./Comment";
 
 export default function CommentSection({ comments, postId }) {
@@ -24,6 +24,7 @@ export default function CommentSection({ comments, postId }) {
   }
 
   function addComment() {
+    setNewCommentValue(" ");
     setAddCommentsToOpen(!openAddComment);
     setCommentsToOpen(false);
   }
@@ -73,11 +74,15 @@ export default function CommentSection({ comments, postId }) {
               onChange={(event) => setNewCommentValue(event.target.value)}
               onKeyPress={SubmitOnEnter}
             />
-            <Button onClick={() => handleSubmitNewComment(postId)}>submit</Button>
+            <Button onClick={() => handleSubmitNewComment(postId)} color="primary" style={{
+              height: 'fit-content',
+              marginLeft: '5px',
+              alignSelf: 'center'
+            }}>submit</Button>
           </Grid>
         </div>
       ) : null}
-      <ButtonGroup disableElevation variant="outlined" color="default" size="small">
+      <ButtonGroup disableElevation variant="outlined" color="default" size="small" style={{marginLeft: "-7px"}}>
         <Button
           onClick={() => openListOfComments(postId)}
           disabled={length === 0 && newCommentsLength === -1}

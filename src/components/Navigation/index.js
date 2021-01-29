@@ -19,17 +19,11 @@ export default function Navigation() {
   return (
     <Navbar expand="lg">
       <Navbar.Brand as={NavLink} to="/">
-        CAIRNS
+        CAIRN
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav style={{ width: "100%" }} fill>
-          <Nav.Item>
-            <Typography variant="h6" component="span">
-              <LocationOnIcon />
-              {location}
-            </Typography>
-          </Nav.Item>
           {loginLogoutControls}
         </Nav>
       </Navbar.Collapse>

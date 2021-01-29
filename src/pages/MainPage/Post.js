@@ -5,7 +5,7 @@ import {
   CardActions,
   CardContent,
   Chip,
-  Grid,
+  Grid, GridListTile,
   Typography,
 } from "@material-ui/core";
 import ReadMoreReact from "read-more-react";
@@ -18,10 +18,11 @@ export default function Post({ post }) {
   const { comments, id, tags } = post;
 
   const cardStyle = {
-    display: "block",
-    width: "20vw",
-    // height: "30vw",
-    overflow: "auto",
+    // display: "block",
+     width: "350px",
+    margin: '10px',
+    // // height: "30vw",
+    // overflow: "auto",
   };
 
   const tagChips = tags.map((tagName, i) => {
@@ -40,7 +41,6 @@ export default function Post({ post }) {
   });
 
   return (
-    <Grid item xs>
       <Card style={cardStyle}>
         <CardActionArea>
           <CardContent>
@@ -77,6 +77,5 @@ export default function Post({ post }) {
           </CardContent>
         </CardActionArea>
       </Card>
-    </Grid>
   );
 }
