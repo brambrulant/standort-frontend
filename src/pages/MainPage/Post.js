@@ -21,12 +21,12 @@ export default function Post({ post }) {
   const cardStyle = {
     display: "block",
     width: "20vw",
-    height: "30vw",
+    // height: "30vw",
     overflow: "auto",
   };
 
   const tagChips = tags.map((tagName, i) => {
-    const Icon = tagList.find((tag) => tag.name === tagName).Icon;
+    const Icon = tagList.find((tag) => tag.name === tagName)?.Icon;
     return (
       <Chip
         color="primary"
@@ -46,7 +46,7 @@ export default function Post({ post }) {
         <CardActionArea>
           <CardContent>
             <div className="post-title">
-              <Avatar alt={post.user.name} src={post.user.profilePic}/>
+              <Avatar alt={post.user.name} src={post.user.profilePic} />
               <Typography gutterBottom variant="h5" component="h2" className="post-user-name">
                 {post.user.name}
               </Typography>
@@ -73,14 +73,9 @@ export default function Post({ post }) {
             {tagChips}
             <CardActions>
               <Grid>
-                <CommentSection
-                  postId={id}
-                  comments={comments}
-                  alignSelf="flex-end"
-                />
+                <CommentSection postId={id} comments={comments} alignSelf="flex-end" />
               </Grid>
             </CardActions>
-
           </CardContent>
         </CardActionArea>
       </Card>

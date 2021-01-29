@@ -84,7 +84,15 @@ export default function CreatePost({ location = "The-Abysss", closeModal }) {
     // Convert from Draft.js ContentState object into a markdown string
     const RawContentObject = convertToRaw(content);
     const markdownString = draftToMarkdown(RawContentObject);
-    dispatch(submitPost({ ...state, message: markdownString, location, picture: picture }));
+    dispatch(
+      submitPost({
+        title: state.title,
+        tags: state.tags.map((tag) => tag.name),
+        message: markdownString,
+        location,
+        picture: picture,
+      })
+    );
     closeModal();
   };
   const remaningTags = tags.filter((tag) => !state.tags.map((tag) => tag.name).includes(tag.name));
