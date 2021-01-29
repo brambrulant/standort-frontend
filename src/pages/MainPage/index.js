@@ -1,21 +1,21 @@
 import CreatePost from "../../components/CreatePost/CreatePost";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {Button, Grid, GridList, makeStyles, Modal} from "@material-ui/core";
+import { Button, Grid, GridList, makeStyles, Modal } from "@material-ui/core";
 import { selectMyLocation } from "../../store/location/selector";
 import { fetchPostsWithMyLocation } from "../../store/posts/actions";
 import { selectPosts } from "../../store/posts/selectors";
 import Post from "./Post";
 import "./index.css";
 import { selectToken } from "../../store/user/selector";
-import EditLocationIcon from '@material-ui/icons/EditLocation';
+import EditLocationIcon from "@material-ui/icons/EditLocation";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
@@ -46,19 +46,30 @@ export default function MainPage() {
   return (
     <>
       <div className="container">
-        <Button onClick={() => setCPVisibility(true)} disabled={!userToken} variant="contained"
-                color="secondary" size="large" startIcon={<EditLocationIcon />} style={{width: 'fit-content', margin: '20px auto 20px auto'}}>
-          Create Post
+        <Button
+          onClick={() => setCPVisibility(true)}
+          disabled={!userToken}
+          variant="contained"
+          color="secondary"
+          size="large"
+          startIcon={<EditLocationIcon />}
+          style={{ width: "fit-content", margin: "20px auto 20px auto" }}
+        >
+          Leave your Mark
         </Button>
         <div className="posts">
           <GridList cellHeight={160} className={classes.gridList} cols={3}>
-            {posts.length > 0 && posts.map((post) => <Post key={post.id} post={post} />)}
+            {posts.length > 0 &&
+              posts.map((post) => <Post key={post.id} post={post} />)}
           </GridList>
         </div>
       </div>
       <Modal open={CPVisibility} onClose={() => setCPVisibility(false)}>
         <div>
-          <CreatePost location={location} closeModal={() => setCPVisibility(false)} />
+          <CreatePost
+            location={location}
+            closeModal={() => setCPVisibility(false)}
+          />
         </div>
       </Modal>
     </>
