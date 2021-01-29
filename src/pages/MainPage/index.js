@@ -9,6 +9,7 @@ import Post from "./Post";
 import "./index.css";
 import { selectToken } from "../../store/user/selector";
 import EditLocationIcon from "@material-ui/icons/EditLocation";
+import FilterByTag from "./FilterByTag";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +32,7 @@ export default function MainPage() {
 
   // states
   const [CPVisibility, setCPVisibility] = useState(false); // CP = create post
-
+  const [filterTags, setFilterTags] = useState([]);
   // redux selectors
   const location = useSelector(selectMyLocation);
   const posts = useSelector(selectPosts);
@@ -43,33 +44,41 @@ export default function MainPage() {
     if (location) dispatch(fetchPostsWithMyLocation(location));
   }, [location, dispatch]);
 
+  const filteredPostList =
+    filterTags.length < 1
+      ? posts
+      : posts.filter((post) =>
+          post.tags.reduce(
+            (prevCheck, currentTag) => prevCheck || filterTags.includes(currentTag),
+            false
+          )
+        );
   return (
     <>
       <div className="container">
-        <Button
-          onClick={() => setCPVisibility(true)}
-          disabled={!userToken}
-          variant="contained"
-          color="secondary"
-          size="large"
-          startIcon={<EditLocationIcon />}
-          style={{ width: "fit-content", margin: "20px auto 20px auto" }}
-        >
-          Leave your Mark
-        </Button>
+        <div style={{ margin: "0 auto" }}>
+          <FilterByTag {...{ filterTags, setFilterTags }} />
+          <Button
+            onClick={() => setCPVisibility(true)}
+            disabled={!userToken}
+            variant="contained"
+            color="secondary"
+            size="large"
+            startIcon={<EditLocationIcon />}
+            style={{ width: "fit-content", margin: "20px auto 20px auto" }}
+          >
+            Leave your Mark
+          </Button>
+        </div>
         <div className="posts">
           <GridList cellHeight={160} className={classes.gridList} cols={3}>
-            {posts.length > 0 &&
-              posts.map((post) => <Post key={post.id} post={post} />)}
+            {posts.length > 0 && filteredPostList.map((post) => <Post key={post.id} post={post} />)}
           </GridList>
         </div>
       </div>
       <Modal open={CPVisibility} onClose={() => setCPVisibility(false)}>
         <div>
-          <CreatePost
-            location={location}
-            closeModal={() => setCPVisibility(false)}
-          />
+          <CreatePost location={location} closeModal={() => setCPVisibility(false)} />
         </div>
       </Modal>
     </>
