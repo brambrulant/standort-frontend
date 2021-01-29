@@ -56,21 +56,14 @@ export default function Post({ post }) {
     <Card style={cardStyle}>
       <CardActionArea>
         <CardContent>
-          <Typography
-            gutterBottom
-            variant="h6"
-            component="h2"
-            className="post-user-name"
-          >
-            {post.title}
-          </Typography>
+          <Typography variant="h6">{post.title}</Typography>
           <div className="post-title">
             <Avatar
               className={classes.avatar}
               alt={post.user.name}
               src={post.user.profilePic}
             />
-            <Typography gutterBottom variant="body2" component="p">
+            <Typography gutterBottom variant="caption" component="p">
               {post.user.name},{" "}
               {formatDistance(new Date(createdAt), new Date())} ago
             </Typography>
