@@ -8,6 +8,8 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
+import ReadMoreReact from "read-more-react";
+
 import React from "react";
 import CommentSection from "./CommentSection";
 import ReactMarkdown from "react-markdown";
@@ -20,6 +22,7 @@ export default function Post({ post }) {
     display: "block",
     width: "20vw",
     height: "30vw",
+    overflow: "auto",
   };
 
   const tagChips = tags.map((tagName, i) => {
@@ -49,12 +52,15 @@ export default function Post({ post }) {
               {post.title}
             </Typography>
             <Typography variant="body1" color="textSecondary" component="p">
-              <ReactMarkdown>{post.message}</ReactMarkdown>
+              <ReadMoreReact
+                text={post.message}
+                readMoreText={<p style={{ color: "black" }}>read more...</p>}
+              />
             </Typography>
             {post.picture ? (
               <img
                 src={post.picture}
-                alt={`image of ${post.name}`}
+                alt={`${post.name}`}
                 style={{
                   height: "200px",
                   width: "200px",
@@ -62,11 +68,18 @@ export default function Post({ post }) {
               />
             ) : null}
             {tagChips}
+            <CardActions>
+              <Grid>
+                <CommentSection
+                  postId={id}
+                  comments={comments}
+                  alignSelf="flex-end"
+                />
+              </Grid>
+            </CardActions>
+
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          <CommentSection postId={id} comments={comments} />
-        </CardActions>
       </Card>
     </Grid>
   );
