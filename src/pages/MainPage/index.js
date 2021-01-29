@@ -41,7 +41,7 @@ export default function MainPage() {
   const classes = useStyles();
 
   useEffect(() => {
-    if (location) dispatch(fetchPostsWithMyLocation(location));
+    if (posts.length < 1 && location) dispatch(fetchPostsWithMyLocation(location));
   }, [location, dispatch]);
 
   const filteredPostList =
