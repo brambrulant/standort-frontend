@@ -1,4 +1,4 @@
-# <img style="height: 40px; margin-right:20px" src="https://www.flaticon.com/svg/vstatic/svg/927/927693.svg?token=exp=1611917826~hmac=6386c51ae7827eadfef1b4472d4ee085">STANDORT
+# <img src="https://raw.githubusercontent.com/brambrulant/standort-frontend/development/public/favicon.ico">STANDORT
 
 
 ## The idea
@@ -65,17 +65,15 @@ Backend repository - [link](https://github.com/Mr0cket/standort-backend)
 ### Backend
 
 <a href="https://nodejs.dev/"><img style="margin-right:10px" src="https://img.icons8.com/color/48/000000/nodejs.png"/></a>
-<a href="https://expressjs.com/"><img style="width: 90px; padding-bottom: 10px; margin-right:5px" src="https://camo.githubusercontent.com/0566752248b4b31b2c4bdc583404e41066bd0b6726f310b73e1140deefcc31ac/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67"/></a>
+<a href="https://expressjs.com/"><src="http://skill-branch.com/img/backend/logos/5.png"/></a>
 <a href="https://www.postgresql.org/"><img style="margin-right:5px"  src="https://img.icons8.com/color/48/000000/postgreesql.png"/></a>
 <a href="https://sequelize.org/"><img style="height: 40px; padding-bottom: 10px" src="https://pbs.twimg.com/media/CVQKQjrUsAAGcZi.png"/></a>
 
 ## About us
 
-<div style="display: flex; flex-direction: column">
-    <a href="https://github.com/brambrulant">Bram Schabbink</a>
-    <a href="https://github.com/Mr0cket">Milo Silva</a>
-    <a href="https://github.com/YanaTrifonova">Yana Trifonova</a>
-</div>
+#### <a href="https://github.com/brambrulant">Bram Schabbink</a>
+#### <a href="https://github.com/Mr0cket">Milo Silva</a>
+#### <a href="https://github.com/YanaTrifonova">Yana Trifonova</a>
 
 ## Run in development mode
 
