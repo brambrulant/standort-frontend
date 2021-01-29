@@ -1,4 +1,5 @@
-# <img src="https://raw.githubusercontent.com/brambrulant/standort-frontend/development/public/favicon.ico">CAIRN
+# <img src="https://raw.githubusercontent.com/brambrulant/standort-frontend/development/public/favicon.ico">CAIRN - /kɛːn/ - Man-made pile of stones. Often erected as a sign for future travellers
+
 
 
 ## The idea
