@@ -64,10 +64,10 @@ Backend repository - [link](https://github.com/Mr0cket/standort-backend)
 
 ### Backend
 
-#### <a href="https://nodejs.dev/"><img style="margin-right:10px" src="https://img.icons8.com/color/48/000000/nodejs.png"/></a>
-#### <a href="https://expressjs.com/"><img src="http://skill-branch.com/img/backend/logos/5.png"/></a>
-#### <a href="https://www.postgresql.org/"><img style="margin-right:5px"  src="https://img.icons8.com/color/48/000000/postgreesql.png"/></a>
-#### <a href="https://sequelize.org/"><img src="https://pbs.twimg.com/profile_images/656301531789066240/_z81CEHQ_bigger.jpg"/></a>
+<a href="https://nodejs.dev/"><img src="https://img.icons8.com/color/48/000000/nodejs.png"/></a>
+<a href="https://expressjs.com/"><img src="https://i.ibb.co/QCxVyFH/express-3-1.png"/></a>
+<a href="https://www.postgresql.org/"><img style="margin-right:5px"  src="https://img.icons8.com/color/48/000000/postgreesql.png"/></a>
+<a href="https://sequelize.org/"><img src="https://i.ibb.co/LQtSfMw/seq-1.png"/></a>
 
 ## About us
 
