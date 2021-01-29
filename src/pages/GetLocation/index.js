@@ -31,7 +31,7 @@ export default function GetLocation() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [locationState, setLocationState] = useState({ status: "idle", message: "" });
-  const locationStatus = useSelector(selectLocationStatus);
+  // const locationStatus = useSelector(selectLocationStatus);
   const location = useSelector(selectMyLocation);
 
   function showMyLocation() {
@@ -47,11 +47,11 @@ export default function GetLocation() {
   }
 
   useEffect(() => {
-    if (locationStatus === "Not Found")
-      setLocationState({ status: "Not Found", message: "location not found" });
-    else if (!location) showMyLocation();
+    // if (locationStatus === "Not Found")
+    //   setLocationState({ status: "Not Found", message: "location not found" });
+    if (!location) showMyLocation();
     else setLocationState({ status: "success", message: `Welcome to ${location}` });
-  }, [location, locationStatus]);
+  }, [location]);
   function successCallback(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
@@ -81,7 +81,7 @@ export default function GetLocation() {
     <div className={classes.container}>
       <h1>{locationState.message}</h1>
       {locationState.status === "loading" && <CircularProgress />}
-      {(locationState.status !== "loading" || locationState.status === "success") && (
+      {(locationState.status === "blocked" || locationState.status === "unsupported") && (
         <>
           <h3>allow location access in your website settings</h3>
           <h4>...Or search for your city</h4>

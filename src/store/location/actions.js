@@ -26,6 +26,7 @@ function setMyLocality(data) {
 
 const setlocationStatus = (status) => ({
   type: NEW_LOCATION_STATUS,
+  payload: status,
 });
 
 export const getMyLocationName = (latitude, longitude) => {
@@ -35,7 +36,7 @@ export const getMyLocationName = (latitude, longitude) => {
         `http://api.positionstack.com/v1/reverse?access_key=${ACCESS_KEY}&query=${latitude},${longitude}`
       );
       dispatch(setMyLocality(response.data.data[0]));
-      setTimeout(() => dispatch({ type: LOCATION_FOUND }), 1500);
+      setTimeout(() => dispatch(setlocationStatus("Found")), 1500);
     } catch (error) {
       console.log(error.message);
     }
