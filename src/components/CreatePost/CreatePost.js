@@ -6,13 +6,17 @@ import {
   createMuiTheme,
   MuiThemeProvider,
   Chip,
+  Paper,
+  makeStyles,
+  Typography,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { submitPost } from "../../store/posts/actions";
 import MUIRichTextEditor from "mui-rte";
-import { tags } from "../../config/constants";
+import tags from "../../config/tags";
 import TagDropdown from "./TagDropdown";
 import { draftToMarkdown } from "markdown-draft-js";
+import AddPhoto from "../AddPhoto";
 const theme = createMuiTheme();
 
 // root, container, editor, and editorContainer
@@ -30,14 +34,32 @@ Object.assign(theme, {
   },
 });
 
-export default function CreateAPost({ location = "The-Abysss" }) {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: "absolute",
+    width: 500,
+    backgroundColor: theme.palette.background.paper,
+    // border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: "10%",
+    left: "30%",
+  },
+  tagRow: {},
+  chip: {
+    marginLeft: "5px",
+  },
+}));
+
+export default function CreatePost({ location = "The-Abysss", closeModal }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const [state, setState] = useState({
     title: "",
     tags: [],
-    location: location,
   });
   const [content, setContent] = useState("");
+  const [picture, setPicture] = useState("");
   // input listeners
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -48,79 +70,96 @@ export default function CreateAPost({ location = "The-Abysss" }) {
   };
 
   const toggleTag = (tag) => {
-    state.tags.includes(tag)
-      ? setState({ ...state, tags: state.tags.filter((atag) => tag !== atag) })
-      : setState({ ...state, tags: [...state.tags, tag] });
+    const tagNames = state.tags.map((tag) => tag.name);
+
+    if (tagNames.includes(tag.name))
+      return setState({
+        ...state,
+        tags: state.tags.filter((anotherTag) => tag.name !== anotherTag.name),
+      });
+    if (tagNames.length > 2) return;
+    setState({ ...state, tags: [...state.tags, tag] });
   };
   const submit = () => {
     // Convert from Draft.js ContentState object into a markdown string
     const RawContentObject = convertToRaw(content);
     const markdownString = draftToMarkdown(RawContentObject);
-    dispatch(submitPost({ ...state, message: markdownString }));
-    console.log(markdownString);
+    dispatch(
+      submitPost({
+        title: state.title,
+        tags: state.tags.map((tag) => tag.name),
+        message: markdownString,
+        location,
+        picture: picture,
+      })
+    );
+    closeModal();
   };
-  const remaningTags = tags.filter((tag) => !state.tags.includes(tag));
-  const selectedTags = state.tags.map((tag, i) => (
-    <Chip
-      color="primary"
-      key={i}
-      label={tag}
-      onDelete={() => toggleTag(tag)}
-      variant="default"
-      className="tagChip"
-      icon={null} // create
-      size="small"
-    ></Chip>
-  ));
+  const remaningTags = tags.filter((tag) => !state.tags.map((tag) => tag.name).includes(tag.name));
+  const selectedTags = state.tags.map((tag, i) => {
+    const { Icon, name } = tag;
+    return (
+      <Chip
+        color="primary"
+        key={i}
+        label={name}
+        onDelete={() => toggleTag(tag)}
+        variant="default"
+        className={classes.chip}
+        icon={<Icon />} // create
+        abcd="3px"
+      ></Chip>
+    );
+  });
   //  https://www.npmjs.com/package/mui-rte
   //  decide on toolbar controls
   // values are: "title", "bold", "italic", "underline", "strikethrough", "highlight", "undo", "redo", "link", "media", "numberList", "bulletList", "quote", "code", "clear", "save".
+
+  const handleProfilePicture = (profilePictureUrl) => {
+    console.log(profilePictureUrl);
+    setPicture(profilePictureUrl);
+  };
+
   return (
-    <form
-      style={styles.form}
-      className={"post-form"}
-      noValidate
-      autoComplete="off"
-    >
-      <TextField
-        id="outlined-Title"
-        label="title"
-        name="title"
-        value={state.name}
-        onChange={handleChange}
-        margin="normal"
-        variant="outlined"
-        fullWidth
-      />
-      <MuiThemeProvider theme={theme}>
-        <MUIRichTextEditor
-          label="Start typing..."
-          toolbarButtonSize="small" // | "medium"
-          controls={["link", "title", "italic", "bold"]}
-          onChange={handleContentChange}
+    <Paper className={classes.paper}>
+      <Typography variant="h4">Create a post</Typography>
+      <form noValidate autoComplete="off">
+        <TextField
+          id="outlined-Title"
+          label="title"
+          name="title"
+          value={state.name}
+          onChange={handleChange}
+          margin="normal"
+          variant="outlined"
+          fullWidth
         />
-      </MuiThemeProvider>
-      <div style={styles.addTagsRow}>
-        {tags && <TagDropdown tags={remaningTags} addTag={toggleTag} />}
-        {selectedTags}
-        <Button onClick={submit} variant="contained" style={styles.post}>
-          Post
-        </Button>
-      </div>
-    </form>
+        <MuiThemeProvider theme={theme}>
+          <MUIRichTextEditor
+            label="Start typing..."
+            toolbarButtonSize="small" // | "medium"
+            controls={["link", "title", "italic", "bold"]}
+            onChange={handleContentChange}
+          />
+        </MuiThemeProvider>
+        <div className={classes.tagRow}>
+          <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+            <div style={{ marginBottom: "10px" }}>
+              {tags && <TagDropdown tags={remaningTags} addTag={toggleTag} />}
+            </div>
+            <div>{selectedTags}</div>
+          </div>
+          <AddPhoto
+            onProfilePictureUpd={handleProfilePicture}
+            buttonName="add photo the post"
+            rounded={false}
+          />
+
+          <Button onClick={submit} variant="contained">
+            Post
+          </Button>
+        </div>
+      </form>
+    </Paper>
   );
 }
-
-const styles = {
-  form: {
-    display: "flex",
-    flexWrap: "wrap",
-    width: "30vw",
-    height: "10vh",
-  },
-  textField: {
-    marginLeft: "0px",
-  },
-  addTagsRow: {},
-  post: {},
-};

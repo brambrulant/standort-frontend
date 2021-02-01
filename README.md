@@ -1,42 +1,87 @@
-# Frontend template
+# <img src="https://raw.githubusercontent.com/brambrulant/standort-frontend/development/public/favicon.ico">CAIRN - /kɛːn/ - Man-made pile of stones. Often erected as a sign for future travellers
 
-This is a simple react/redux/jwt template to start a project quickly
 
-## Table of contents:
 
-- **[Setup](#setup-how-to-use-this-template)**
-- **[Create React App docs](#cra-docs)**
+## The idea
 
-## SETUP How to use this template
+If there was an app where tourists & locals could:
 
-1. Create a new project based on this template using the `Use this template` button
+- ask questions,
+- leave recommendations,
+- give advice about places to visit in, and surrounding the city:
+    - what places to avoid,
+    - how to get to these places,
+    - what to prepare
+- etc.
 
-![HOW_TO_USE](https://user-images.githubusercontent.com/20372832/77003323-70966180-695d-11ea-8abe-b362d57135f3.gif)
+It would be very useful to help travellers get the best experiences out of their trip in the most convenient way.
 
-2. Clone the app
+## User Stories
 
-```
-git clone git@github.com:YOUR_GITHUB_NAME/YOUR_PROJECT_NAME.git
-```
+1. As a user I am able to log in
+    - name
+    - email
+    - password
+    - profile picture
+2. As a user I am able to sign up
+    - email
+    - password
+3. As a user, I can create a post as thread or question or recommendation
+    - I can add pictures to my post
+        - Implementation: cloudinary hosts the images & creates “add image” popup
+    - I can add links to my post
+        - Implementation:
+          add a small text editor to create posts
+    - I can add tags to represent the topic/activity I am posting about. App provides you There is a fixed list of tags
+      which represent all types of activities
 
-3. cd into your project
+4. As a user when I open the app I join the social space/feed of my current city/location
+    - App automatically get your location when you come to the page
 
-```
-cd YOUR_PROJECT_NAME
-```
+## Project status board with user stories and release plan
 
-4. install dependencies
+[Link to GitHub project board](https://github.com/brambrulant/standort-frontend/projects/1)
 
-```
-npm install
-```
+## Wireframes
 
-5. Start development server with npm start
+[User scenarios in Figma](https://www.figma.com/file/eo9Ja9TiFeVikox5KNDipI/LocationAppie?node-id=0%3A1)
+
+## GitHub links
+
+Frontend repository - current
+
+Backend repository - [link](https://github.com/Mr0cket/standort-backend)
+
+## Stack
+
+### Frontend
+
+<a href="https://www.javascript.com/"><img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript"></a>
+<a href="https://www.w3.org/html/"><img src="https://img.icons8.com/color/48/000000/html-5.png"/></a>
+<a href="https://www.w3.org/TR/CSS/#css"><img src="https://img.icons8.com/color/48/000000/css3.png"/></a>
+<a href="https://reactjs.org/"><img src="https://img.icons8.com/officel/40/000000/react.png"/></a>
+<a href="https://redux.js.org/"><img src="https://img.icons8.com/color/48/000000/redux.png"/></a>
+<a href="https://material-ui.com/"><img src="https://img.icons8.com/color/48/000000/material-ui.png"/></a>
+
+### Backend
+
+<a href="https://nodejs.dev/"><img src="https://img.icons8.com/color/48/000000/nodejs.png"/></a>
+<a href="https://expressjs.com/"><img src="https://i.ibb.co/QCxVyFH/express-3-1.png"/></a>
+<a href="https://www.postgresql.org/"><img style="margin-right:5px"  src="https://img.icons8.com/color/48/000000/postgreesql.png"/></a>
+<a href="https://sequelize.org/"><img src="https://i.ibb.co/LQtSfMw/seq-1.png"/></a>
+
+## About us
+
+#### <a href="https://github.com/brambrulant">Bram Schabbink</a>
+#### <a href="https://github.com/Mr0cket">Milo Silva</a>
+#### <a href="https://github.com/YanaTrifonova">Yana Trifonova</a>
+
+## Run in development mode
+
+Server starts on PORT=3000
+
+start server
 
 ```
 npm start
 ```
-
-## CRA docs
-
-The normal Create React App docs can be found in [CRA_DOCS.md](./CRA_DOCS.md)

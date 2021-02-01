@@ -1,0 +1,9 @@
+.posts {
+  display: flex;
+}
+
+.post-title {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
