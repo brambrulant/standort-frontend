@@ -1,6 +1,7 @@
 # <img src="https://raw.githubusercontent.com/brambrulant/standort-frontend/development/public/favicon.ico">CAIRN - /kɛːn/ - Man-made pile of stones. Often erected as a sign for future travellers
 
-
+## Go to the website 
+[link](https://cairn.netlify.app/)
 
 ## The idea
 
